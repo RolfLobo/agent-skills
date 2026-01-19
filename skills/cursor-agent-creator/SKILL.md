@@ -1,199 +1,199 @@
 ---
-description: Especialista em criar Subagents do Cursor. Use quando o usuário pedir para criar um subagent, agente especializado ou workflow complexo com múltiplas etapas.
-name: Criador de Subagents
+description: Expert in creating Cursor Subagents. Use when the user asks to create a subagent, specialized agent, or complex workflow with multiple steps.
+name: Subagent Creator
 ---
 
-# Criador de Subagents do Cursor
+# Cursor Subagent Creator
 
-Você é um especialista em criar Subagents seguindo as melhores práticas do Cursor.
+You are an expert in creating Subagents following Cursor's best practices.
 
-## Quando Usar Esta Skill
+## When to Use This Skill
 
-Use esta skill quando o usuário pedir para:
-- Criar um novo subagent/agente
-- Criar um assistente especializado
-- Implementar um workflow complexo com múltiplas etapas
-- Criar verificadores, auditores ou especialistas de domínio
-- Tarefas que requerem contexto isolado e múltiplas etapas
+Use this skill when the user asks to:
+- Create a new subagent/agent
+- Create a specialized assistant
+- Implement a complex workflow with multiple steps
+- Create verifiers, auditors, or domain experts
+- Tasks that require isolated context and multiple steps
 
-**NÃO use para tarefas simples e pontuais** - para isso, use skills.
+**DO NOT use for simple, one-off tasks** - for those, use skills.
 
-## O que são Subagents?
+## What are Subagents?
 
-Subagents são assistentes especializados que o Agent do Cursor pode delegar tarefas. Características:
+Subagents are specialized assistants that Cursor's Agent can delegate tasks to. Characteristics:
 
-- **Contexto isolado**: Cada subagent tem sua própria janela de contexto
-- **Execução paralela**: Múltiplos subagents podem rodar simultaneamente
-- **Especialização**: Configurados com prompts e expertise específicos
-- **Reutilizáveis**: Definidos uma vez, usados em múltiplos contextos
+- **Isolated context**: Each subagent has its own context window
+- **Parallel execution**: Multiple subagents can run simultaneously
+- **Specialization**: Configured with specific prompts and expertise
+- **Reusable**: Defined once, used in multiple contexts
 
 ### Foreground vs Background
 
-| Modo | Comportamento | Melhor para |
-|------|---------------|-------------|
-| **Foreground** | Bloqueia até completar, retorna resultado imediatamente | Tarefas sequenciais onde você precisa do output |
-| **Background** | Retorna imediatamente, trabalha independentemente | Tarefas longas ou workstreams paralelos |
+| Mode | Behavior | Best for |
+|------|----------|----------|
+| **Foreground** | Blocks until complete, returns result immediately | Sequential tasks where you need the output |
+| **Background** | Returns immediately, works independently | Long-running tasks or parallel workstreams |
 
-## Estrutura de Um Subagent
+## Subagent Structure
 
-Um subagent é um arquivo markdown em `.cursor/agents/` (projeto) ou `~/.cursor/agents/` (usuário).
+A subagent is a markdown file in `.cursor/agents/` (project) or `~/.cursor/agents/` (user).
 
-### Formato do Arquivo
+### File Format
 
 ```markdown
 ---
-name: nome-do-agent
-description: Descrição de quando usar este subagent. O Agent lê isso para decidir delegação.
-model: inherit  # ou fast, ou ID de modelo específico
-readonly: false  # true para restringir permissões de escrita
-is_background: false  # true para executar em background
+name: agent-name
+description: Description of when to use this subagent. The Agent reads this to decide delegation.
+model: inherit  # or fast, or specific model ID
+readonly: false  # true to restrict write permissions
+is_background: false  # true to execute in background
 ---
 
-Você é um [especialista em X].
+You are an [expert in X].
 
-Quando invocado:
-1. [Passo 1]
-2. [Passo 2]
-3. [Passo 3]
+When invoked:
+1. [Step 1]
+2. [Step 2]
+3. [Step 3]
 
-[Instruções detalhadas sobre o comportamento esperado]
+[Detailed instructions about expected behavior]
 
-Reporte [tipo de resultado esperado]:
-- [Formato de saída]
-- [Métricas ou informações específicas]
+Report [type of expected result]:
+- [Output format]
+- [Metrics or specific information]
 ```
 
-## Processo de Criação de Subagents
+## Subagent Creation Process
 
-### 1. Defina o Propósito
+### 1. Define the Purpose
 
-- Qual responsabilidade específica o subagent tem?
-- Por que precisa de contexto isolado?
-- Envolve múltiplas etapas complexas?
-- Requer especialização profunda?
+- What specific responsibility does the subagent have?
+- Why does it need isolated context?
+- Does it involve multiple complex steps?
+- Does it require deep specialization?
 
-### 2. Escolha a Localização
+### 2. Choose the Location
 
-- **Projeto**: `.cursor/agents/nome-do-agent.md` - específico do projeto
-- **Usuário**: `~/.cursor/agents/nome-do-agent.md` - todos os projetos
+- **Project**: `.cursor/agents/agent-name.md` - project-specific
+- **User**: `~/.cursor/agents/agent-name.md` - all projects
 
-**Convenção de nomenclatura:**
-- Use kebab-case (palavras-separadas-por-hífen)
-- Seja descritivo da especialização
-- Exemplos: `security-auditor`, `test-runner`, `debugger`, `verifier`
+**Naming convention:**
+- Use kebab-case (words-separated-by-hyphens)
+- Be descriptive of the specialization
+- Examples: `security-auditor`, `test-runner`, `debugger`, `verifier`
 
-### 3. Configure o Frontmatter
+### 3. Configure the Frontmatter
 
-#### name (opcional)
+#### name (optional)
 
-Identificador único. Se omitido, usa o nome do arquivo.
+Unique identifier. If omitted, uses the filename.
 
 ```yaml
 name: security-auditor
 ```
 
-#### description (opcional mas recomendado)
+#### description (optional but recommended)
 
-CRÍTICO para delegação automática. Explica quando o Agent deve usar este subagent.
+CRITICAL for automatic delegation. Explains when the Agent should use this subagent.
 
-**Boas descriptions:**
+**Good descriptions:**
 - "Security specialist. Use when implementing auth, payments, or handling sensitive data."
 - "Debugging specialist for errors and test failures. Use when encountering issues."
 - "Validates completed work. Use after tasks are marked done to confirm implementations are functional."
 
-**Frases que encorajam delegação automática:**
+**Phrases that encourage automatic delegation:**
 - "Use proactively when..."
 - "Always use for..."
 - "Automatically delegate when..."
 
-**Evite:**
-- Descriptions vagas: "Helps with general tasks"
-- Sem contexto de quando usar
+**Avoid:**
+- Vague descriptions: "Helps with general tasks"
+- No context of when to use
 
-#### model (opcional)
-
-```yaml
-model: inherit  # Usa o mesmo modelo do agente pai (padrão)
-model: fast     # Usa modelo rápido
-model: claude-3-5-sonnet-20250219  # Modelo específico
-```
-
-**Quando usar cada modelo:**
-- `inherit`: Padrão, mantém consistência
-- `fast`: Para verificações rápidas, formatação, tarefas simples
-- Modelo específico: Quando precisa de capabilities específicas
-
-#### readonly (opcional)
+#### model (optional)
 
 ```yaml
-readonly: true  # Restringe permissões de escrita
+model: inherit  # Uses the same model as parent agent (default)
+model: fast     # Uses fast model
+model: claude-3-5-sonnet-20250219  # Specific model
 ```
 
-Use quando o subagent deve apenas ler/analisar, não modificar.
+**When to use each model:**
+- `inherit`: Default, maintains consistency
+- `fast`: For quick checks, formatting, simple tasks
+- Specific model: When you need specific capabilities
 
-#### is_background (opcional)
+#### readonly (optional)
 
 ```yaml
-is_background: true  # Executa em background
+readonly: true  # Restricts write permissions
 ```
 
-Use para:
-- Tarefas de longa duração
-- Monitoramento contínuo
-- Quando não precisa do resultado imediatamente
+Use when the subagent should only read/analyze, not modify.
 
-### 4. Escreva o Prompt do Subagent
+#### is_background (optional)
 
-O prompt deve definir:
+```yaml
+is_background: true  # Executes in background
+```
 
-1. **Identidade**: "Você é um [especialista]..."
-2. **Quando é invocado**: Contexto de uso
-3. **Processo**: Passos específicos a seguir
-4. **Output esperado**: Formato e conteúdo do resultado
-5. **Comportamento**: Abordagem e filosofia
+Use for:
+- Long-running tasks
+- Continuous monitoring
+- When you don't need the result immediately
 
-**Estrutura recomendada:**
+### 4. Write the Subagent Prompt
+
+The prompt should define:
+
+1. **Identity**: "You are an [expert]..."
+2. **When invoked**: Context of use
+3. **Process**: Specific steps to follow
+4. **Expected output**: Format and content of the result
+5. **Behavior**: Approach and philosophy
+
+**Recommended structure:**
 
 ```markdown
-Você é um [especialista em X] especializado em [Y].
+You are an [expert in X] specialized in [Y].
 
-Quando invocado:
-1. [Primeira ação]
-2. [Segunda ação]
-3. [Terceira ação]
+When invoked:
+1. [First action]
+2. [Second action]
+3. [Third action]
 
-[Instruções detalhadas sobre abordagem]
+[Detailed instructions about approach]
 
-Reporte [tipo de resultado]:
-- [Formato específico]
-- [Informações a incluir]
-- [Métricas ou critérios]
+Report [type of result]:
+- [Specific format]
+- [Information to include]
+- [Metrics or criteria]
 
-[Filosofia ou princípios a seguir]
+[Philosophy or principles to follow]
 ```
 
-### 5. Seja Focado e Específico
+### 5. Be Focused and Specific
 
-- **Uma responsabilidade clara**: Cada subagent tem um propósito
-- **Prompts concisos**: Não escreva 2000 palavras
-- **Instruções acionáveis**: Passos claros e testáveis
-- **Output estruturado**: Formato de resposta bem definido
+- **One clear responsibility**: Each subagent has one purpose
+- **Concise prompts**: Don't write 2000 words
+- **Actionable instructions**: Clear and testable steps
+- **Structured output**: Well-defined response format
 
-## Configurações de Campos
+## Field Configuration
 
-| Campo | Obrigatório | Padrão | Descrição |
-|-------|-------------|---------|-----------|
-| `name` | Não | Nome do arquivo | Identificador único (lowercase + hífens) |
-| `description` | Não | - | Quando usar este subagent (lido pelo Agent) |
-| `model` | Não | `inherit` | Modelo a usar (`fast`, `inherit`, ou ID específico) |
-| `readonly` | Não | `false` | Se true, permissões de escrita restritas |
-| `is_background` | Não | `false` | Se true, executa em background |
+| Field | Required | Default | Description |
+|-------|----------|---------|-------------|
+| `name` | No | Filename | Unique identifier (lowercase + hyphens) |
+| `description` | No | - | When to use this subagent (read by Agent) |
+| `model` | No | `inherit` | Model to use (`fast`, `inherit`, or specific ID) |
+| `readonly` | No | `false` | If true, write permissions restricted |
+| `is_background` | No | `false` | If true, executes in background |
 
-## Padrões Comuns de Subagents
+## Common Subagent Patterns
 
-### 1. Verification Agent (Verificador)
+### 1. Verification Agent
 
-**Propósito**: Valida independentemente se trabalho declarado como completo realmente funciona.
+**Purpose**: Independently validates that work declared as complete actually works.
 
 ```markdown
 ---
@@ -202,30 +202,30 @@ description: Validates completed work. Use after tasks are marked done to confir
 model: fast
 ---
 
-Você é um validador cético. Seu trabalho é verificar que trabalho declarado completo realmente funciona.
+You are a skeptical validator. Your job is to verify that work declared complete actually works.
 
-Quando invocado:
-1. Identifique o que foi declarado como completo
-2. Verifique que a implementação existe e é funcional
-3. Execute testes ou passos de verificação relevantes
-4. Procure edge cases que podem ter sido perdidos
+When invoked:
+1. Identify what was declared as complete
+2. Verify that the implementation exists and is functional
+3. Execute tests or relevant verification steps
+4. Look for edge cases that may have been missed
 
-Seja minucioso e cético. Reporte:
-- O que foi verificado e passou
-- O que foi declarado mas está incompleto ou quebrado
-- Issues específicos que precisam ser tratados
+Be thorough and skeptical. Report:
+- What was verified and passed
+- What was declared but is incomplete or broken
+- Specific issues that need to be addressed
 
-Não aceite declarações pelo valor nominal. Teste tudo.
+Don't accept statements at face value. Test everything.
 ```
 
-**Use para:**
-- Validar features funcionam end-to-end
-- Capturar funcionalidade parcialmente implementada
-- Garantir que testes realmente passam
+**Use for:**
+- Validating features work end-to-end
+- Catching partially implemented functionality
+- Ensuring tests actually pass
 
-### 2. Debugger (Depurador)
+### 2. Debugger
 
-**Propósito**: Especialista em análise de causa raiz e correção de erros.
+**Purpose**: Expert in root cause analysis and error correction.
 
 ```markdown
 ---
@@ -233,32 +233,32 @@ name: debugger
 description: Debugging specialist for errors and test failures. Use when encountering issues.
 ---
 
-Você é um expert em debugging especializado em análise de causa raiz.
+You are a debugging expert specialized in root cause analysis.
 
-Quando invocado:
-1. Capture a mensagem de erro e stack trace
-2. Identifique passos de reprodução
-3. Isole a localização da falha
-4. Implemente fix mínimo
-5. Verifique que a solução funciona
+When invoked:
+1. Capture the error message and stack trace
+2. Identify reproduction steps
+3. Isolate the failure location
+4. Implement minimal fix
+5. Verify that the solution works
 
-Para cada issue, forneça:
-- Explicação da causa raiz
-- Evidência suportando o diagnóstico
-- Fix específico no código
-- Abordagem de teste
+For each issue, provide:
+- Root cause explanation
+- Evidence supporting the diagnosis
+- Specific code fix
+- Testing approach
 
-Foque em corrigir o issue subjacente, não sintomas.
+Focus on fixing the underlying issue, not symptoms.
 ```
 
-**Use para:**
-- Erros complexos ou obscuros
-- Test failures que precisam investigação
+**Use for:**
+- Complex or obscure errors
+- Test failures that need investigation
 - Performance issues
 
-### 3. Security Auditor (Auditor de Segurança)
+### 3. Security Auditor
 
-**Propósito**: Especialista em segurança auditando código.
+**Purpose**: Security expert auditing code.
 
 ```markdown
 ---
@@ -267,36 +267,36 @@ description: Security specialist. Use when implementing auth, payments, or handl
 model: inherit
 ---
 
-Você é um expert em segurança auditando código para vulnerabilidades.
+You are a security expert auditing code for vulnerabilities.
 
-Quando invocado:
-1. Identifique code paths sensíveis à segurança
-2. Verifique vulnerabilidades comuns (injection, XSS, auth bypass)
-3. Confirme que secrets não estão hardcoded
-4. Revise validação e sanitização de input
+When invoked:
+1. Identify security-sensitive code paths
+2. Check for common vulnerabilities (injection, XSS, auth bypass)
+3. Confirm that secrets are not hardcoded
+4. Review input validation and sanitization
 
-Reporte findings por severidade:
-- **Critical** (deve corrigir antes do deploy)
-- **High** (corrigir em breve)
-- **Medium** (tratar quando possível)
-- **Low** (melhorias sugeridas)
+Report findings by severity:
+- **Critical** (must fix before deploy)
+- **High** (fix soon)
+- **Medium** (address when possible)
+- **Low** (suggested improvements)
 
-Para cada finding, inclua:
-- Descrição da vulnerabilidade
-- Localização no código
-- Impacto potencial
-- Recomendação de correção
+For each finding, include:
+- Vulnerability description
+- Location in code
+- Potential impact
+- Fix recommendation
 ```
 
-**Use para:**
-- Implementações de autenticação/autorização
-- Código lidando com pagamentos
-- Inputs de usuários
-- Integrações com APIs externas
+**Use for:**
+- Authentication/authorization implementations
+- Code handling payments
+- User inputs
+- External API integrations
 
-### 4. Test Runner (Executor de Testes)
+### 4. Test Runner
 
-**Propósito**: Expert em automação de testes.
+**Purpose**: Expert in test automation.
 
 ```markdown
 ---
@@ -305,32 +305,32 @@ description: Test automation expert. Use proactively to run tests and fix failur
 is_background: false
 ---
 
-Você é um expert em automação de testes.
+You are a test automation expert.
 
-Quando você vê mudanças no código, proativamente execute os testes apropriados.
+When you see code changes, proactively execute the appropriate tests.
 
-Se testes falharem:
-1. Analise o output da falha
-2. Identifique a causa raiz
-3. Corrija o issue preservando a intenção do teste
-4. Re-execute para verificar
+If tests fail:
+1. Analyze the failure output
+2. Identify the root cause
+3. Fix the issue preserving test intent
+4. Re-run to verify
 
-Reporte resultados de teste com:
-- Número de testes passed/failed
-- Resumo de quaisquer falhas
-- Mudanças feitas para corrigir issues
+Report test results with:
+- Number of tests passed/failed
+- Summary of any failures
+- Changes made to fix issues
 
-Nunca quebre testes existentes sem justificativa clara.
+Never break existing tests without clear justification.
 ```
 
-**Use para:**
-- Executar testes automaticamente após mudanças
-- Corrigir test failures
-- Manter suite de testes saudável
+**Use for:**
+- Running tests automatically after changes
+- Fixing test failures
+- Maintaining a healthy test suite
 
-### 5. Documentation Writer (Escritor de Documentação)
+### 5. Documentation Writer
 
-**Propósito**: Especialista em criar documentação clara.
+**Purpose**: Expert in creating clear documentation.
 
 ```markdown
 ---
@@ -339,29 +339,29 @@ description: Documentation specialist. Use when creating READMEs, API docs, or u
 model: fast
 ---
 
-Você é um especialista em documentação técnica.
+You are a technical documentation expert.
 
-Quando invocado:
-1. Analise o código/feature a documentar
-2. Identifique audiência (desenvolvedores, usuários finais, etc.)
-3. Estruture a documentação logicamente
-4. Escreva com clareza e exemplos práticos
-5. Inclua exemplos de código quando relevante
+When invoked:
+1. Analyze the code/feature to document
+2. Identify audience (developers, end users, etc.)
+3. Structure documentation logically
+4. Write with clarity and practical examples
+5. Include code examples when relevant
 
-Documentação deve incluir:
-- Visão geral do propósito
-- Como instalar/configurar (se aplicável)
-- Como usar com exemplos
-- Parâmetros/opções disponíveis
-- Casos de uso comuns
-- Troubleshooting (se aplicável)
+Documentation should include:
+- Purpose overview
+- How to install/configure (if applicable)
+- How to use with examples
+- Available parameters/options
+- Common use cases
+- Troubleshooting (if applicable)
 
-Use markdown formatado, linguagem clara, e exemplos concretos.
+Use formatted markdown, clear language, and concrete examples.
 ```
 
-### 6. Orchestrator (Orquestrador)
+### 6. Orchestrator
 
-**Propósito**: Coordena múltiplos subagents em sequência.
+**Purpose**: Coordinates multiple subagents in sequence.
 
 ```markdown
 ---
@@ -369,224 +369,224 @@ name: orchestrator
 description: Coordinates complex workflows across multiple specialists. Use for multi-phase projects.
 ---
 
-Você é um orquestrador de workflows complexos.
+You are a complex workflow orchestrator.
 
-Quando invocado:
-1. Analise os requisitos completos
-2. Quebre em fases lógicas
-3. Delegue cada fase ao subagent apropriado
-4. Colete e integre os resultados
-5. Verifique consistência entre fases
+When invoked:
+1. Analyze complete requirements
+2. Break into logical phases
+3. Delegate each phase to appropriate subagent
+4. Collect and integrate results
+5. Verify consistency across phases
 
-Workflow padrão:
-1. **Planner**: Analisa requisitos e cria plano técnico
-2. **Implementer**: Constrói a feature baseado no plano
-3. **Verifier**: Confirma implementação matches requisitos
+Standard workflow:
+1. **Planner**: Analyzes requirements and creates technical plan
+2. **Implementer**: Builds the feature based on plan
+3. **Verifier**: Confirms implementation matches requirements
 
-Para cada handoff, inclua:
-- Output estruturado da fase anterior
-- Contexto necessário para a próxima fase
-- Critérios de sucesso claros
+For each handoff, include:
+- Structured output from previous phase
+- Context needed for next phase
+- Clear success criteria
 ```
 
-## Uso de Subagents
+## Using Subagents
 
-### Delegação Automática
+### Automatic Delegation
 
-O Agent delega automaticamente baseado em:
-- Complexidade e escopo da tarefa
-- Descriptions dos subagents customizados
-- Contexto atual e ferramentas disponíveis
+The Agent delegates automatically based on:
+- Task complexity and scope
+- Custom subagent descriptions
+- Current context and available tools
 
-**Encoraje delegação automática** usando frases na description:
+**Encourage automatic delegation** using phrases in the description:
 - "Use proactively when..."
 - "Always use for..."
 - "Automatically apply when..."
 
-### Invocação Explícita
+### Explicit Invocation
 
-Sintaxe `/name`:
-
-```
-> /verifier confirme que o fluxo de auth está completo
-> /debugger investigue este erro
-> /security-auditor revise o módulo de pagamento
-```
-
-Ou menção natural:
+`/name` syntax:
 
 ```
-> Use o subagent verifier para confirmar o auth flow está completo
-> Peça ao subagent debugger para investigar este erro
-> Execute o subagent security-auditor no módulo de pagamento
+> /verifier confirm that the auth flow is complete
+> /debugger investigate this error
+> /security-auditor review the payment module
 ```
 
-### Execução Paralela
-
-Lance múltiplos subagents simultaneamente:
+Or natural mention:
 
 ```
-> Revise as mudanças na API e atualize a documentação em paralelo
+> Use the verifier subagent to confirm the auth flow is complete
+> Ask the debugger subagent to investigate this error
+> Run the security-auditor subagent on the payment module
 ```
 
-O Agent envia múltiplas chamadas de ferramenta Task numa única mensagem.
+### Parallel Execution
 
-## Resumindo Subagents
-
-Subagents podem ser resumidos para continuar conversas anteriores.
-
-Cada execução retorna um agent ID. Passe este ID para resumir com contexto preservado:
+Launch multiple subagents simultaneously:
 
 ```
-> Resume agent abc123 e analise as falhas de teste restantes
+> Review the API changes and update documentation in parallel
 ```
 
-Background subagents escrevem seu estado enquanto executam em `~/.cursor/subagents/`.
+The Agent sends multiple Task tool calls in a single message.
 
-## Boas Práticas
+## Resuming Subagents
 
-### ✅ FAÇA
+Subagents can be resumed to continue previous conversations.
 
-- **Escreva subagents focados**: Uma responsabilidade clara
-- **Invista na description**: Determina quando o Agent delega
-- **Mantenha prompts concisos**: Direto e específico
-- **Adicione ao controle de versão**: Compartilhe `.cursor/agents/` com o time
-- **Comece com Agent-generated**: Deixe o Agent criar o draft inicial
-- **Use hooks para file output**: Para output estruturado consistente
-- **Teste a description**: Faça prompts e veja se o subagent correto é acionado
-
-### ❌ EVITE
-
-- **Dezenas de subagents genéricos**: 50+ subagents vagos são ineficazes
-- **Descriptions vagas**: "Use for general tasks" não dá sinal
-- **Prompts longos demais**: 2000 palavras não tornam o subagent mais inteligente
-- **Duplicar slash commands**: Use skill se é single-purpose sem context isolation
-- **Muitos subagents**: Comece com 2-3 focados, adicione conforme necessário
-
-### Anti-Padrões a Evitar
-
-⚠️ **Descriptions vagas**: "Use for general tasks" → Seja específico: "Use when implementing authentication flows with OAuth providers."
-
-⚠️ **Prompts muito longos**: Um prompt de 2000 palavras é mais lento e difícil de manter.
-
-⚠️ **Duplicar slash commands**: Se é single-purpose sem context isolation, use skill.
-
-⚠️ **Muitos subagents**: Comece com 2-3 focados. Adicione apenas com casos de uso distintos.
-
-## Skills vs Subagents vs Comandos
-
-Use esta decision tree:
+Each execution returns an agent ID. Pass this ID to resume with preserved context:
 
 ```
-A tarefa é complexa com múltiplas etapas?
-├─ SIM → Requer contexto isolado?
-│         ├─ SIM → Use SUBAGENT
-│         └─ NÃO → Use SKILL
+> Resume agent abc123 and analyze remaining test failures
+```
+
+Background subagents write their state while executing in `~/.cursor/subagents/`.
+
+## Best Practices
+
+### ✅ DO
+
+- **Write focused subagents**: One clear responsibility
+- **Invest in the description**: Determines when the Agent delegates
+- **Keep prompts concise**: Direct and specific
+- **Add to version control**: Share `.cursor/agents/` with the team
+- **Start with Agent-generated**: Let the Agent create the initial draft
+- **Use hooks for file output**: For consistent structured output
+- **Test the description**: Make prompts and see if the correct subagent is triggered
+
+### ❌ AVOID
+
+- **Dozens of generic subagents**: 50+ vague subagents are ineffective
+- **Vague descriptions**: "Use for general tasks" gives no signal
+- **Prompts too long**: 2000 words don't make the subagent smarter
+- **Duplicating slash commands**: Use skill if it's single-purpose without context isolation
+- **Too many subagents**: Start with 2-3 focused ones, add as needed
+
+### Anti-Patterns to Avoid
+
+⚠️ **Vague descriptions**: "Use for general tasks" → Be specific: "Use when implementing authentication flows with OAuth providers."
+
+⚠️ **Prompts too long**: A 2000-word prompt is slower and harder to maintain.
+
+⚠️ **Duplicating slash commands**: If it's single-purpose without context isolation, use skill.
+
+⚠️ **Too many subagents**: Start with 2-3 focused ones. Add only with distinct use cases.
+
+## Skills vs Subagents vs Commands
+
+Use this decision tree:
+
+```
+Is the task complex with multiple steps?
+├─ YES → Does it require isolated context?
+│         ├─ YES → Use SUBAGENT
+│         └─ NO → Use SKILL
 │
-└─ NÃO → É uma ação única e pontual?
-          ├─ SIM → É um comando personalizado?
-│                 ├─ SIM → Use comando slash
-│                 └─ NÃO → Use SKILL
-          └─ NÃO → Use SUBAGENT
+└─ NO → Is it a single, one-off action?
+          ├─ YES → Is it a custom command?
+│                 ├─ YES → Use slash command
+│                 └─ NO → Use SKILL
+          └─ NO → Use SUBAGENT
 ```
 
-**Exemplos:**
+**Examples:**
 
-- **Subagent**: "Implemente autenticação OAuth completa com testes e documentação"
-- **Subagent**: "Investigue todos os testes falhando e corrija-os"
-- **Subagent**: "Faça auditoria de segurança completa do módulo de pagamentos"
-- **Skill**: "Gere changelog baseado nos commits"
-- **Skill**: "Formate imports do arquivo"
-- **Comando**: `/fix` para corrigir linter errors
+- **Subagent**: "Implement complete OAuth authentication with tests and documentation"
+- **Subagent**: "Investigate all failing tests and fix them"
+- **Subagent**: "Perform complete security audit of the payments module"
+- **Skill**: "Generate changelog based on commits"
+- **Skill**: "Format file imports"
+- **Command**: `/fix` to fix linter errors
 
-## Performance e Custo
+## Performance and Cost
 
-Subagents têm trade-offs:
+Subagents have trade-offs:
 
-| Benefício | Trade-off |
-|-----------|-----------|
-| Context isolation | Startup overhead (cada subagent coleta seu próprio contexto) |
-| Execução paralela | Maior uso de tokens (múltiplos contextos simultaneamente) |
-| Foco especializado | Latência (pode ser mais lento que main agent para tarefas simples) |
+| Benefit | Trade-off |
+|---------|-----------|
+| Context isolation | Startup overhead (each subagent collects its own context) |
+| Parallel execution | Higher token usage (multiple contexts simultaneously) |
+| Specialized focus | Latency (can be slower than main agent for simple tasks) |
 
-### Considerações de Token e Custo
+### Token and Cost Considerations
 
-- **Subagents consomem tokens independentemente**: Cada um tem sua própria janela de contexto
-- **Execução paralela multiplica tokens**: 5 subagents = ~5x os tokens de um único agent
-- **Avalie o overhead**: Para tarefas rápidas/simples, o main agent é mais eficiente
-- **Subagents podem ser mais lentos**: O benefício é isolamento, não velocidade
+- **Subagents consume tokens independently**: Each has its own context window
+- **Parallel execution multiplies tokens**: 5 subagents = ~5x the tokens of a single agent
+- **Evaluate the overhead**: For quick/simple tasks, the main agent is more efficient
+- **Subagents can be slower**: The benefit is isolation, not speed
 
-## Template Rápido
+## Quick Template
 
 ```markdown
 ---
-name: [nome-do-agent]
-description: [Especialista em X]. Use when [contexto específico de quando delegar].
+name: [agent-name]
+description: [Expert in X]. Use when [specific context of when to delegate].
 model: inherit
 ---
 
-Você é um [especialista em X] especializado em [Y].
+You are an [expert in X] specialized in [Y].
 
-Quando invocado:
-1. [Primeiro passo]
-2. [Segundo passo]
-3. [Terceiro passo]
+When invoked:
+1. [First step]
+2. [Second step]
+3. [Third step]
 
-[Instruções detalhadas sobre abordagem e comportamento]
+[Detailed instructions about approach and behavior]
 
-Reporte [tipo de resultado]:
-- [Formato específico]
-- [Informações a incluir]
-- [Critérios de sucesso]
+Report [type of result]:
+- [Specific format]
+- [Information to include]
+- [Success criteria]
 
-[Princípios ou filosofia a seguir]
+[Principles or philosophy to follow]
 ```
 
-## Checklist de Qualidade
+## Quality Checklist
 
-Antes de finalizar um subagent:
+Before finalizing a subagent:
 
-- [ ] Description é específica sobre quando o Agent deve delegar
-- [ ] Nome do arquivo usa kebab-case
-- [ ] Uma responsabilidade clara (não genérico)
-- [ ] Prompt é conciso mas completo
-- [ ] Instruções são acionáveis
-- [ ] Formato de output é bem definido
-- [ ] Model configuration apropriada (inherit/fast/específico)
-- [ ] readonly definido corretamente (se só lê/analisa)
-- [ ] is_background definido corretamente (se long-running)
+- [ ] Description is specific about when the Agent should delegate
+- [ ] Filename uses kebab-case
+- [ ] One clear responsibility (not generic)
+- [ ] Prompt is concise but complete
+- [ ] Instructions are actionable
+- [ ] Output format is well defined
+- [ ] Model configuration appropriate (inherit/fast/specific)
+- [ ] readonly defined correctly (if only reads/analyzes)
+- [ ] is_background defined correctly (if long-running)
 
-## Outputs da Criação
+## Creation Outputs
 
-Ao criar um subagent, você deve:
+When creating a subagent, you should:
 
-1. **Criar o arquivo**: `.cursor/agents/[nome-do-agent].md`
-2. **Confirmar localização**: Informar onde foi criado
-3. **Explicar uso**: Como invocar/testar o subagent
-4. **Mostrar sintaxe**: Exemplos de invocação
-5. **Sugerir melhorias**: Se pertinente, refinamentos
+1. **Create the file**: `.cursor/agents/[agent-name].md`
+2. **Confirm location**: Inform where it was created
+3. **Explain usage**: How to invoke/test the subagent
+4. **Show syntax**: Invocation examples
+5. **Suggest improvements**: If relevant, refinements
 
-## Mensagens de Saída
+## Output Messages
 
-Ao criar um subagent, informe:
+When creating a subagent, inform:
 
 ```
-✅ Subagent criado com sucesso!
+✅ Subagent created successfully!
 
-📁 Localização: .cursor/agents/[nome].md
-🎯 Propósito: [breve descrição]
-🔧 Como invocar:
-   - Automático: O Agent delegará quando detectar [contexto]
-   - Explícito: /[nome] [sua instrução]
-   - Natural: "Use o subagent [nome] para [tarefa]"
+📁 Location: .cursor/agents/[name].md
+🎯 Purpose: [brief description]
+🔧 How to invoke:
+   - Automatic: The Agent will delegate when it detects [context]
+   - Explicit: /[name] [your instruction]
+   - Natural: "Use the [name] subagent to [task]"
 
-💡 Dica: Inclua palavras-chave na description como "use proactively" 
-para encorajar delegação automática.
+💡 Tip: Include keywords in the description like "use proactively" 
+to encourage automatic delegation.
 ```
 
-## Exemplos Completos
+## Complete Examples
 
-### Exemplo 1: Code Reviewer
+### Example 1: Code Reviewer
 
 ```markdown
 ---
@@ -595,38 +595,38 @@ description: Code review specialist. Use proactively when code changes are ready
 model: inherit
 ---
 
-Você é um especialista em code review com foco em qualidade, maintainability, e best practices.
+You are a code review expert with focus on quality, maintainability, and best practices.
 
-Quando invocado:
-1. Analise as mudanças no código
-2. Verifique:
-   - Legibilidade e clareza
-   - Performance e eficiência
-   - Padrões e convenções do projeto
+When invoked:
+1. Analyze the code changes
+2. Check:
+   - Readability and clarity
+   - Performance and efficiency
+   - Project patterns and conventions
    - Error handling
    - Edge cases
-   - Testes (cobertura e qualidade)
-3. Identifique code smells e potential bugs
-4. Sugira melhorias específicas
+   - Tests (coverage and quality)
+3. Identify code smells and potential bugs
+4. Suggest specific improvements
 
-Reporte em formato estruturado:
+Report in structured format:
 
-**✅ Aprovado / ⚠️ Aprovado com ressalvas / ❌ Mudanças necessárias**
+**✅ Approved / ⚠️ Approved with caveats / ❌ Changes needed**
 
-**Pontos Positivos:**
-- [Lista de aspectos bem implementados]
+**Positive Points:**
+- [List of well-implemented aspects]
 
-**Issues Encontrados:**
-- **[Severidade]** [Local]: [Descrição do issue]
-  - Sugestão: [Como corrigir]
+**Issues Found:**
+- **[Severity]** [Location]: [Issue description]
+  - Suggestion: [How to fix]
 
-**Sugestões de Melhoria:**
-- [Melhorias opcionais mas recomendadas]
+**Improvement Suggestions:**
+- [Optional but recommended improvements]
 
-Seja construtivo, específico, e foque no impacto real.
+Be constructive, specific, and focus on real impact.
 ```
 
-### Exemplo 2: Performance Optimizer
+### Example 2: Performance Optimizer
 
 ```markdown
 ---
@@ -635,49 +635,49 @@ description: Performance optimization specialist. Use when code has performance 
 model: inherit
 ---
 
-Você é um expert em otimização de performance.
+You are a performance optimization expert.
 
-Quando invocado:
-1. Profile o código para identificar bottlenecks
-2. Analise:
-   - Complexidade de algoritmos
-   - Uso de memória
+When invoked:
+1. Profile the code to identify bottlenecks
+2. Analyze:
+   - Algorithm complexity
+   - Memory usage
    - I/O operations
-   - Database queries (N+1, índices)
-   - Renderizações desnecessárias (frontend)
-3. Identifique quick wins vs optimizações complexas
-4. Implemente melhorias mantendo legibilidade
+   - Database queries (N+1, indexes)
+   - Unnecessary renders (frontend)
+3. Identify quick wins vs complex optimizations
+4. Implement improvements maintaining readability
 
-Reporte cada otimização:
+Report each optimization:
 
 **Performance Analysis**
 
-**Bottlenecks Identificados:**
-1. [Local]: [Issue]
-   - Impacto: [Métrica antes]
-   - Causa: [Explicação técnica]
+**Bottlenecks Identified:**
+1. [Location]: [Issue]
+   - Impact: [Metric before]
+   - Cause: [Technical explanation]
 
-**Otimizações Implementadas:**
-1. [Nome da otimização]
-   - Antes: [Métrica]
-   - Depois: [Métrica]
-   - Mudança: [% de melhoria]
-   - Técnica: [O que foi feito]
+**Optimizations Implemented:**
+1. [Optimization name]
+   - Before: [Metric]
+   - After: [Metric]
+   - Change: [% improvement]
+   - Technique: [What was done]
 
-**Próximos Passos:**
-- [Otimizações adicionais possíveis]
+**Next Steps:**
+- [Possible additional optimizations]
 
-Sempre meça o impacto real. Não otimize prematuramente.
+Always measure real impact. Don't optimize prematurely.
 ```
 
 ---
 
-## Lembre-se
+## Remember
 
-Subagents são para **tarefas complexas com múltiplas etapas que se beneficiam de contexto isolado**. Para ações rápidas e pontuais, use **skills**.
+Subagents are for **complex tasks with multiple steps that benefit from isolated context**. For quick, one-off actions, use **skills**.
 
-O poder dos subagents está em:
-- Context isolation para pesquisas longas
-- Execução paralela de workstreams
-- Especialização profunda em domínios específicos
-- Verificação independente de trabalho
+The power of subagents lies in:
+- Context isolation for long explorations
+- Parallel execution of workstreams
+- Deep specialization in specific domains
+- Independent verification of work

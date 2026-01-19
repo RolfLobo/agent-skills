@@ -1,379 +1,379 @@
 ---
-description: Especialista em criar Agent Skills do Cursor. Use quando o usuário pedir para criar uma skill, capacidade reutilizável ou conhecimento especializado.
-name: Criador de Skills
+description: Expert in creating Cursor Agent Skills. Use when the user asks to create a skill, reusable capability, or specialized knowledge.
+name: Skill Creator
 ---
 
-# Criador de Skills do Cursor
+# Cursor Skill Creator
 
-Você é um especialista em criar Agent Skills seguindo o padrão do Cursor.
+You are an expert in creating Agent Skills following Cursor's pattern.
 
-## Quando Usar Esta Skill
+## When to Use This Skill
 
-Use esta skill quando o usuário pedir para:
+Use this skill when the user asks to:
 
-- Criar uma nova skill
-- Empacotar conhecimento específico de domínio
-- Criar capacidades reutilizáveis para o agent
-- Transformar um processo repetitivo em uma skill
-- Criar ações rápidas e pontuais (não tarefas complexas com múltiplas etapas)
+- Create a new skill
+- Package domain-specific knowledge
+- Create reusable capabilities for the agent
+- Transform a repetitive process into a skill
+- Create quick, one-off actions (not complex tasks with multiple steps)
 
-**NÃO use para tarefas complexas que requerem múltiplas etapas** - para isso, use subagents.
+**DO NOT use for complex tasks that require multiple steps** - for those, use subagents.
 
-## Estrutura de Uma Skill
+## Skill Structure
 
-Uma skill é um arquivo `SKILL.md` dentro de uma pasta em `.cursor/skills/` (projeto) ou `~/.cursor/skills/` (usuário).
+A skill is a `SKILL.md` file inside a folder in `.cursor/skills/` (project) or `~/.cursor/skills/` (user).
 
-### Formato do Arquivo
+### File Format
 
 ```markdown
 ---
-description: Descrição curta e objetiva do que a skill faz e quando usar (aparece em menus). Esta descrição é usada pelo agent para decidir quando aplicar a skill.
-name: Nome Legível da Skill (opcional - se omitido, usa o nome da pasta)
+description: Short and objective description of what the skill does and when to use it (appears in menus). This description is used by the agent to decide when to apply the skill.
+name: Readable Skill Name (optional - if omitted, uses folder name)
 ---
 
-# Título da Skill
+# Skill Title
 
-Instruções detalhadas para o agent sobre como usar esta skill.
+Detailed instructions for the agent on how to use this skill.
 
-## Quando Usar
+## When to Use
 
-- Use esta skill quando...
-- Esta skill é útil para...
-- Aplique em situações onde...
+- Use this skill when...
+- This skill is useful for...
+- Apply in situations where...
 
-## Instruções Passo a Passo
+## Step-by-Step Instructions
 
-1. Primeiro faça isso...
-2. Então faça aquilo...
-3. Finalize com...
+1. First do this...
+2. Then do that...
+3. Finish with...
 
-## Convenções e Melhores Práticas
+## Conventions and Best Practices
 
-- Sempre faça X
-- Nunca faça Y
-- Prefira Z quando...
+- Always do X
+- Never do Y
+- Prefer Z when...
 
-## Exemplos (opcional)
+## Examples (optional)
 
-### Exemplo 1: Título do Exemplo
+### Example 1: Example Title
 
-Entrada:
+Input:
 ```
 
-exemplo de entrada
-
-```
-
-Saída esperada:
-```
-
-exemplo de saída
+example input
 
 ```
 
-## Notas Importantes
-
-- Observação importante 1
-- Observação importante 2
+Expected output:
 ```
 
-## Processo de Criação de Skills
-
-Quando criar uma skill, siga estas etapas:
-
-### 1. Entenda o Propósito
-
-- Qual problema específico a skill resolve?
-- Quando o agent deve usar esta skill?
-- É uma tarefa pontual/rápida (skill) ou complexa/multi-etapas (subagent)?
-- Quem vai usar (projeto específico ou todos os projetos)?
-
-### 2. Escolha a Localização
-
-- **Projeto**: `.cursor/skills/nome-da-skill/SKILL.md` - apenas para o projeto atual
-- **Usuário**: `~/.cursor/skills/nome-da-skill/SKILL.md` - disponível em todos os projetos
-
-**Convenção de nomenclatura:**
-
-- Use kebab-case (palavras-separadas-por-hífen)
-- Seja descritivo mas conciso
-- Exemplos: `format-imports`, `generate-tests`, `review-security`
-
-### 3. Escreva a Description
-
-A description é CRÍTICA - determina quando o agent usa a skill.
-
-**Boas descriptions:**
-
-- "Formata imports de TypeScript em ordem alfabética e remove duplicatas"
-- "Gera testes unitários Jest para componentes React seguindo padrões do projeto"
-- "Revisa código para vulnerabilidades de segurança comuns (SQL injection, XSS, CSRF)"
-
-**Descriptions ruins (evite):**
-
-- "Ajuda com código" (muito vaga)
-- "Faz coisas úteis" (não específica)
-- "Skill geral" (sem contexto de quando usar)
-
-**Fórmula para boas descriptions:**
+example output
 
 ```
-[Ação específica] + [em qual contexto] + [seguindo quais critérios/padrões]
+
+## Important Notes
+
+- Important note 1
+- Important note 2
 ```
 
-### 4. Estruture as Instruções
+## Skill Creation Process
 
-As instruções devem ser:
+When creating a skill, follow these steps:
 
-- **Específicas**: Passos claros e não ambíguos
-- **Acionáveis**: O agent pode executar diretamente
-- **Focadas**: Uma responsabilidade clara
-- **Completas**: Incluem todos os detalhes necessários
+### 1. Understand the Purpose
 
-**Organize em seções:**
+- What specific problem does the skill solve?
+- When should the agent use this skill?
+- Is it a one-off/quick task (skill) or complex/multi-step (subagent)?
+- Who will use it (specific project or all projects)?
 
-1. **Quando Usar**: Gatilhos claros para aplicação
-2. **Instruções Principais**: Passo a passo detalhado
-3. **Convenções**: Regras e padrões específicos do domínio
-4. **Exemplos**: Casos de uso concretos (opcional mas útil)
-5. **Notas**: Avisos, limitações, casos especiais
+### 2. Choose the Location
 
-### 5. Seja Conciso mas Completo
+- **Project**: `.cursor/skills/skill-name/SKILL.md` - only for the current project
+- **User**: `~/.cursor/skills/skill-name/SKILL.md` - available in all projects
 
-- Evite prompts longos e divagantes (diluem o foco)
-- Seja direto e específico
-- Use listas e estrutura clara
-- Inclua exemplos concretos quando útil
+**Naming convention:**
 
-### 6. Teste e Refine
+- Use kebab-case (words-separated-by-hyphens)
+- Be descriptive but concise
+- Examples: `format-imports`, `generate-tests`, `review-security`
 
-Após criar a skill:
+### 3. Write the Description
 
-1. Teste fazendo um prompt que deveria acionar a skill
-2. Verifique se o agent usa a skill corretamente
-3. Refine a description se a skill não for acionada quando esperado
-4. Ajuste as instruções se o comportamento não for o esperado
+The description is CRITICAL - it determines when the agent uses the skill.
 
-## Boas Práticas
+**Good descriptions:**
 
-### ✅ FAÇA
+- "Formats TypeScript imports in alphabetical order and removes duplicates"
+- "Generates Jest unit tests for React components following project patterns"
+- "Reviews code for common security vulnerabilities (SQL injection, XSS, CSRF)"
 
-- **Seja específico no escopo**: Uma skill = uma responsabilidade clara
-- **Invista na description**: É como o agent decide usar a skill
-- **Use estrutura clara**: Headers, listas, exemplos
-- **Adicione ao controle de versão**: Compartilhe com o time
-- **Comece simples**: Adicione complexidade conforme necessário
-- **Use exemplos concretos**: Demonstram o comportamento esperado
+**Bad descriptions (avoid):**
 
-### ❌ EVITE
+- "Helps with code" (too vague)
+- "Does useful things" (not specific)
+- "General skill" (no context of when to use)
 
-- **Skills genéricas**: "Ajuda com tarefas gerais" não é útil
-- **Prompts longos**: 2000 palavras não tornam a skill mais inteligente
-- **Duplicar comandos slash**: Se é single-purpose, talvez seja melhor um comando
-- **Muitas skills**: Comece com 2-3 focadas, adicione quando necessário
-- **Descriptions vagas**: "Use para tarefas gerais" não dá sinal ao agent
-- **Tarefas complexas**: Se requer múltiplas etapas e contexto isolado, use subagent
-
-## Skills vs Subagents vs Comandos Slash
-
-Use esta decisão tree:
+**Formula for good descriptions:**
 
 ```
-Tarefa é single-purpose e instantânea?
-├─ SIM → É um comando personalizado?
-│         ├─ SIM → Use comando slash
-│         └─ NÃO → Use skill
+[Specific action] + [in which context] + [following which criteria/patterns]
+```
+
+### 4. Structure the Instructions
+
+The instructions should be:
+
+- **Specific**: Clear and unambiguous steps
+- **Actionable**: The agent can execute directly
+- **Focused**: One clear responsibility
+- **Complete**: Include all necessary details
+
+**Organize into sections:**
+
+1. **When to Use**: Clear triggers for application
+2. **Main Instructions**: Detailed step-by-step
+3. **Conventions**: Domain-specific rules and patterns
+4. **Examples**: Concrete use cases (optional but useful)
+5. **Notes**: Warnings, limitations, special cases
+
+### 5. Be Concise but Complete
+
+- Avoid long, rambling prompts (dilute focus)
+- Be direct and specific
+- Use lists and clear structure
+- Include concrete examples when useful
+
+### 6. Test and Refine
+
+After creating the skill:
+
+1. Test by making a prompt that should trigger the skill
+2. Verify that the agent uses the skill correctly
+3. Refine the description if the skill isn't triggered when expected
+4. Adjust instructions if behavior isn't as expected
+
+## Best Practices
+
+### ✅ DO
+
+- **Be specific in scope**: One skill = one clear responsibility
+- **Invest in the description**: It's how the agent decides to use the skill
+- **Use clear structure**: Headers, lists, examples
+- **Add to version control**: Share with the team
+- **Start simple**: Add complexity as needed
+- **Use concrete examples**: Demonstrate expected behavior
+
+### ❌ AVOID
+
+- **Generic skills**: "Helps with general tasks" is not useful
+- **Long prompts**: 2000 words don't make the skill smarter
+- **Duplicating slash commands**: If it's single-purpose, maybe a command is better
+- **Too many skills**: Start with 2-3 focused ones, add when needed
+- **Vague descriptions**: "Use for general tasks" gives no signal to the agent
+- **Complex tasks**: If it requires multiple steps and isolated context, use subagent
+
+## Skills vs Subagents vs Slash Commands
+
+Use this decision tree:
+
+```
+Is task single-purpose and instant?
+├─ YES → Is it a custom command?
+│         ├─ YES → Use slash command
+│         └─ NO → Use skill
 │
-└─ NÃO → Requer múltiplas etapas e contexto isolado?
-          ├─ SIM → Use subagent
-          └─ NÃO → Use skill
+└─ NO → Does it require multiple steps and isolated context?
+          ├─ YES → Use subagent
+          └─ NO → Use skill
 ```
 
-**Exemplos:**
+**Examples:**
 
-- **Skill**: "Gere um changelog baseado nos commits desde a última tag"
-- **Skill**: "Formate todos os imports seguindo o style guide"
-- **Subagent**: "Implemente autenticação OAuth completa com testes"
-- **Subagent**: "Investigue e corrija todos os testes falhando"
-- **Comando Slash**: `/fix` para corrigir linter errors
+- **Skill**: "Generate a changelog based on commits since last tag"
+- **Skill**: "Format all imports following the style guide"
+- **Subagent**: "Implement complete OAuth authentication with tests"
+- **Subagent**: "Investigate and fix all failing tests"
+- **Slash Command**: `/fix` to fix linter errors
 
-## Template Rápido
+## Quick Template
 
-Use este template ao criar uma skill:
+Use this template when creating a skill:
 
 ```markdown
 ---
-description: [Ação específica] para [contexto] seguindo [padrão/critério]
+description: [Specific action] for [context] following [pattern/criteria]
 ---
 
-# [Nome da Skill]
+# [Skill Name]
 
-Você é um especialista em [domínio específico].
+You are an expert in [specific domain].
 
-## Quando Usar
+## When to Use
 
-Use esta skill quando:
+Use this skill when:
 
-- [Gatilho 1]
-- [Gatilho 2]
-- [Gatilho 3]
+- [Trigger 1]
+- [Trigger 2]
+- [Trigger 3]
 
-## Processo
+## Process
 
-1. [Passo 1]
-2. [Passo 2]
-3. [Passo 3]
+1. [Step 1]
+2. [Step 2]
+3. [Step 3]
 
-## Critérios e Convenções
+## Criteria and Conventions
 
-- [Regra 1]
-- [Regra 2]
-- [Regra 3]
+- [Rule 1]
+- [Rule 2]
+- [Rule 3]
 
-## Formato de Saída (se aplicável)
+## Output Format (if applicable)
 
-[Descreva o formato esperado da saída]
+[Describe the expected output format]
 ```
 
-## Exemplos de Skills Bem Estruturadas
+## Well-Structured Skill Examples
 
-### Exemplo 1: Formatador de Imports
+### Example 1: Import Formatter
 
 ````markdown
 ---
-description: Organiza e formata imports JavaScript/TypeScript em ordem alfabética, agrupa por tipo (externos, internos, tipos) e remove duplicatas.
+description: Organizes and formats JavaScript/TypeScript imports in alphabetical order, groups by type (external, internal, types) and removes duplicates.
 ---
 
-# Formatador de Imports
+# Import Formatter
 
-## Quando Usar
+## When to Use
 
-- Ao finalizar um arquivo com imports desorganizados
-- Quando solicitado para "organizar imports"
-- Antes de commits para manter consistência
+- When finishing a file with disorganized imports
+- When asked to "organize imports"
+- Before commits to maintain consistency
 
-## Processo
+## Process
 
-1. Identifique todos os statements de import
-2. Classifique em grupos:
-   - Externos (node_modules)
-   - Internos (paths relativos e aliases)
-   - Tipos (import type)
-3. Ordene alfabeticamente dentro de cada grupo
-4. Remova duplicatas
-5. Adicione linha em branco entre grupos
+1. Identify all import statements
+2. Classify into groups:
+   - External (node_modules)
+   - Internal (relative paths and aliases)
+   - Types (import type)
+3. Sort alphabetically within each group
+4. Remove duplicates
+5. Add blank line between groups
 
-## Formato Esperado
+## Expected Format
 
 ```typescript
-// Externos
+// External
 import { useState } from "react";
 import axios from "axios";
 
-// Internos
+// Internal
 import { Button } from "@/components/Button";
 import { utils } from "../utils";
 
-// Tipos
+// Types
 import type { User } from "@/types";
 ```
 ````
 
 ````
 
-### Exemplo 2: Gerador de Changelog
+### Example 2: Changelog Generator
 
 ```markdown
 ---
-description: Gera changelog formatado baseado em commits Git desde a última tag, categorizando por tipo (feat, fix, docs, etc.) seguindo Conventional Commits.
+description: Generates formatted changelog based on Git commits since last tag, categorizing by type (feat, fix, docs, etc.) following Conventional Commits.
 ---
 
-# Gerador de Changelog
+# Changelog Generator
 
-## Quando Usar
+## When to Use
 
-- Ao preparar um release
-- Quando solicitado para "gerar changelog"
-- Para documentar mudanças entre versões
+- When preparing a release
+- When asked to "generate changelog"
+- To document changes between versions
 
-## Processo
+## Process
 
-1. Busque commits desde a última tag git
-2. Parse mensagens seguindo Conventional Commits
-3. Categorize por tipo:
+1. Fetch commits since last git tag
+2. Parse messages following Conventional Commits
+3. Categorize by type:
    - ✨ Features (feat:)
    - 🐛 Fixes (fix:)
    - 📚 Docs (docs:)
    - 🔧 Chore (chore:)
    - ♻️ Refactor (refactor:)
-4. Formate em markdown com bullet points
-5. Inclua breaking changes em seção separada
+4. Format in markdown with bullet points
+5. Include breaking changes in separate section
 
-## Formato de Saída
+## Output Format
 
 ```markdown
-## [Versão] - [Data]
+## [Version] - [Date]
 
 ### ✨ Features
-- feat(auth): adicionar login com OAuth
-- feat(api): endpoint para upload de arquivos
+- feat(auth): add OAuth login
+- feat(api): endpoint for file upload
 
 ### 🐛 Fixes
-- fix(ui): corrigir menu responsivo
-- fix(db): resolver race condition em transactions
+- fix(ui): fix responsive menu
+- fix(db): resolve race condition in transactions
 
 ### 📚 Documentation
-- docs: atualizar README com novos endpoints
+- docs: update README with new endpoints
 
 ### ⚠️ BREAKING CHANGES
-- feat(api)!: remover endpoint /v1/legacy
+- feat(api)!: remove endpoint /v1/legacy
 ````
 
 ```
 
-## Outputs da Criação
+## Creation Outputs
 
-Ao criar uma skill, você deve:
+When creating a skill, you should:
 
-1. **Criar o diretório**: `.cursor/skills/[nome-da-skill]/`
-2. **Criar o arquivo**: `SKILL.md` dentro do diretório
-3. **Confirmar localização**: Informar onde a skill foi criada
-4. **Explicar uso**: Como testar/usar a skill
-5. **Sugerir melhorias**: Se pertinente, sugerir refinamentos
+1. **Create the directory**: `.cursor/skills/[skill-name]/`
+2. **Create the file**: `SKILL.md` inside the directory
+3. **Confirm location**: Inform where the skill was created
+4. **Explain usage**: How to test/use the skill
+5. **Suggest improvements**: If relevant, suggest refinements
 
-## Checklist de Qualidade
+## Quality Checklist
 
-Antes de finalizar uma skill, verifique:
+Before finalizing a skill, verify:
 
-- [ ] Description é específica e clara sobre quando usar
-- [ ] Nome da pasta usa kebab-case
-- [ ] Instruções são acionáveis e não ambíguas
-- [ ] Escopo é focado (uma responsabilidade)
-- [ ] Exemplos concretos estão incluídos (se aplicável)
-- [ ] Seções estão bem organizadas
-- [ ] Não é uma tarefa complexa (que deveria ser subagent)
-- [ ] Formato de saída está claro (se aplicável)
+- [ ] Description is specific and clear about when to use
+- [ ] Folder name uses kebab-case
+- [ ] Instructions are actionable and unambiguous
+- [ ] Scope is focused (one responsibility)
+- [ ] Concrete examples are included (if applicable)
+- [ ] Sections are well organized
+- [ ] It's not a complex task (that should be a subagent)
+- [ ] Output format is clear (if applicable)
 
-## Mensagens de Saída
+## Output Messages
 
-Ao criar uma skill, informe ao usuário:
+When creating a skill, inform the user:
 
 ```
 
-✅ Skill criada com sucesso!
+✅ Skill created successfully!
 
-📁 Localização: .cursor/skills/[nome]/SKILL.md
-🎯 Propósito: [breve descrição]
-🔧 Como testar: [exemplo de prompt que deve acionar a skill]
+📁 Location: .cursor/skills/[name]/SKILL.md
+🎯 Purpose: [brief description]
+🔧 How to test: [example prompt that should trigger the skill]
 
-💡 Dica: O agent irá usar esta skill automaticamente quando detectar [contexto].
-Você também pode mencioná-la explicitamente em prompts.
+💡 Tip: The agent will use this skill automatically when it detects [context].
+You can also mention it explicitly in prompts.
 
 ```
 
 ---
 
-## Lembre-se
+## Remember
 
-Skills são para **conhecimento reutilizável e ações pontuais**. Para tarefas complexas com múltiplas etapas, delegação, e contexto isolado, use **subagents** em vez de skills.
+Skills are for **reusable knowledge and one-off actions**. For complex tasks with multiple steps, delegation, and isolated context, use **subagents** instead of skills.
 ```
