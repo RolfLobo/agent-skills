@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: tree:0
+
+      - uses: nrwl/nx-set-shas@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Run affected lint, test, and build
+        run: npx nx affected -t lint,test,build
+
+  validate-skills:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate skills structure
+        run: |
+          echo "🔍 Validating skills structure..."
+          for skill in skills/*/; do
+            if [ ! -f "$skill/SKILL.md" ]; then
+              echo "❌ Missing SKILL.md in $skill"
+              exit 1
+            fi
+            
+            # Validate SKILL.md has frontmatter
+            if ! head -1 "$skill/SKILL.md" | grep -q "^---"; then
+              echo "❌ Missing frontmatter in $skill/SKILL.md"
+              exit 1
+            fi
+            
+            echo "✅ Valid: $skill"
+          done
+          echo "✅ All skills valid"
