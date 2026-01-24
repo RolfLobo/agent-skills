@@ -1,0 +1,69 @@
+{
+  "name": "@tlc/agent-skills-monorepo",
+  "version": "0.0.0",
+  "author": "Tech Leads Club",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "description": "AI agent skills CLI and toolkit",
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "bugs": {
+    "url": "https://github.com/tech-leads-club/agent-skills/issues"
+  },
+  "homepage": "https://github.com/tech-leads-club/agent-skills#readme",
+  "scripts": {
+    "build": "nx run-many -t build",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "g": "nx g @tlc/skill-plugin:skill",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "release": "nx release",
+    "release:dry": "nx release --dry-run",
+    "start:dev": "npm run dev --workspace=@tlc/agent-skills",
+    "test": "NODE_OPTIONS='--experimental-vm-modules' nx run-many -t test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tech-leads-club/agent-skills.git"
+  },
+  "keywords": [
+    "agents",
+    "ai",
+    "antigravity",
+    "claude-code",
+    "cli",
+    "copilot",
+    "cursor",
+    "opencode",
+    "skills"
+  ],
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@nx/devkit": "^22.4.1",
+    "@nx/eslint": "^22.4.1",
+    "@nx/jest": "22.4.1",
+    "@nx/js": "^22.4.1",
+    "@nx/plugin": "^22.4.1",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^22",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "jest": "^30.2.0",
+    "jest-environment-node": "^30.2.0",
+    "jest-util": "^30.2.0",
+    "jsonc-eslint-parser": "^2.4.2",
+    "nx": "^22.4.1",
+    "prettier": "^3.8.1",
+    "prettier-plugin-organize-imports": "^4.3.0",
+    "ts-jest": "^29.4.6",
+    "tslib": "^2.8.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.53.1"
+  }
+}
