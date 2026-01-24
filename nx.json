@@ -1,0 +1,64 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/nx-schema.json",
+  "namedInputs": {
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
+    "sharedGlobals": [],
+    "production": [
+      "default",
+      "!{projectRoot}/**/*.spec.ts",
+      "!{projectRoot}/**/*.test.ts",
+      "!{projectRoot}/jest.config.ts"
+    ]
+  },
+  "plugins": [],
+  "release": {
+    "projects": [
+      "@tlc/agent-skills"
+    ],
+    "version": {
+      "conventionalCommits": true,
+      "preVersionCommand": "npx nx run-many -t build",
+      "fallbackCurrentVersionResolver": "disk"
+    },
+    "changelog": {
+      "automaticFromRef": true,
+      "projectChangelogs": true,
+      "workspaceChangelog": {
+        "createRelease": "github"
+      }
+    },
+    "git": {
+      "commit": true,
+      "tag": true
+    }
+  },
+  "targetDefaults": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "cache": true,
+      "inputs": [
+        "production",
+        "^production"
+      ]
+    },
+    "test": {
+      "cache": true,
+      "inputs": [
+        "default",
+        "^production"
+      ]
+    },
+    "lint": {
+      "cache": true,
+      "inputs": [
+        "default"
+      ]
+    }
+  },
+  "defaultBase": "main"
+}
