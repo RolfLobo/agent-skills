@@ -33,7 +33,7 @@ agent-skills/
 ├── .github/workflows/
 │   ├── ci.yml                  # Lint, test, build
 │   └── release.yml             # Version and publish
-└── nx.json                     # NX configuration
+│└── nx.json                     # NX configuration
 ```
 
 ## Creating a New Skill
@@ -168,3 +168,36 @@ This repository uses [Conventional Commits](https://www.conventionalcommits.org/
 - `docs:` — documentation only
 - `chore:` — maintenance
 - `feat!:` or `BREAKING CHANGE:` — breaking change (major version bump)
+
+## Recommended Tools (MCP)
+
+This repository is an **Nx Workspace**. To significantly improve AI agent performance, understanding of the project structure, and task execution, it is highly recommended to use the **Nx MCP Server**.
+
+### Capabilities
+
+- **Workspace Structure Understanding**: Deep architectural awareness of the monorepo.
+- **Improved Task Execution**: Ability to list and run Nx targets (lint, test, build) with context.
+- **Enhanced Code Generation**: AI-powered generator suggestions.
+
+### Setup Instructions
+
+**Automatic Setup (Recommended):**
+Run this command to automatically configure your Nx workspace for AI agents (creates/updates `AGENTS.md`, `CLAUDE.md`, etc):
+
+```bash
+npx nx configure-ai-agents
+```
+
+**Manual Configuration:**
+If you need to manually configure your MCP client (e.g., Claude Desktop, Cursor), use the following settings:
+
+```json
+{
+  "mcpServers": {
+    "nx-mcp": {
+      "command": "npx",
+      "args": ["-y", "nx-mcp@latest"]
+    }
+  }
+}
+```
