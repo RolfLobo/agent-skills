@@ -1,3 +1,54 @@
+## 0.1.0-beta.1 (2026-01-25)
+
+### 🚀 Features
+
+- add ESLint configuration for TypeScript with recommended rules ([7e04b65](https://github.com/tech-leads-club/agent-skills/commit/7e04b65))
+- add Jest preset configuration for TypeScript testing ([df7f962](https://github.com/tech-leads-club/agent-skills/commit/df7f962))
+- add Jest configuration for project testing ([c5141b9](https://github.com/tech-leads-club/agent-skills/commit/c5141b9))
+- add nx configuration for project management and build processes ([c937d0e](https://github.com/tech-leads-club/agent-skills/commit/c937d0e))
+- add initial configuration ([4584775](https://github.com/tech-leads-club/agent-skills/commit/4584775))
+- add skill-creator symlink for agent skills ([484c029](https://github.com/tech-leads-club/agent-skills/commit/484c029))
+- add AGENTS.md for guidance on AI coding agents ([3e0917d](https://github.com/tech-leads-club/agent-skills/commit/3e0917d))
+- add symlink for AGENTS.md to CLAUDE.md ([a429576](https://github.com/tech-leads-club/agent-skills/commit/a429576))
+- add comprehensive README for agent skills documentation ([7f7063d](https://github.com/tech-leads-club/agent-skills/commit/7f7063d))
+- add TypeScript configuration for project setup ([2a7ee33](https://github.com/tech-leads-club/agent-skills/commit/2a7ee33))
+- add CI configuration for validating skills structure ([66fa03b](https://github.com/tech-leads-club/agent-skills/commit/66fa03b))
+- add release workflow for automated deployment on push ([195cad7](https://github.com/tech-leads-club/agent-skills/commit/195cad7))
+- add Jest configuration for CLI testing ([b7d098e](https://github.com/tech-leads-club/agent-skills/commit/b7d098e))
+- add initial CLI package configuration for agent skills ([072af1d](https://github.com/tech-leads-club/agent-skills/commit/072af1d))
+- add TypeScript configuration for CLI package ([f23d900](https://github.com/tech-leads-club/agent-skills/commit/f23d900))
+- add TypeScript configuration for testing with Jest ([32aa9a1](https://github.com/tech-leads-club/agent-skills/commit/32aa9a1))
+- add interfaces for agent configuration and skill management ([74ea8f8](https://github.com/tech-leads-club/agent-skills/commit/74ea8f8))
+- implement skill discovery and management functions ([4fd5139](https://github.com/tech-leads-club/agent-skills/commit/4fd5139))
+- add interactive skill installation and management prompts ([fe52459](https://github.com/tech-leads-club/agent-skills/commit/fe52459))
+- add agent configuration and detection functionality ([b35851a](https://github.com/tech-leads-club/agent-skills/commit/b35851a))
+- implement interactive skill installation and listing commands ([945f255](https://github.com/tech-leads-club/agent-skills/commit/945f255))
+- implement skill installation and listing functionality ([ba9cb2c](https://github.com/tech-leads-club/agent-skills/commit/ba9cb2c))
+- add cursor subagent creator skill for complex workflows ([6e1b6f0](https://github.com/tech-leads-club/agent-skills/commit/6e1b6f0))
+- update cursor skill creator description and name for clarity ([997b35e](https://github.com/tech-leads-club/agent-skills/commit/997b35e))
+- add skill-creator guide for effective AI agent skills ([b0b5674](https://github.com/tech-leads-club/agent-skills/commit/b0b5674))
+- add design, implementation, task, and validation documentation ([e5f7904](https://github.com/tech-leads-club/agent-skills/commit/e5f7904))
+- add spec-driven development skill for feature planning ([dfaac3f](https://github.com/tech-leads-club/agent-skills/commit/dfaac3f))
+- add guide for creating AI subagents with isolated context ([0c130d8](https://github.com/tech-leads-club/agent-skills/commit/0c130d8))
+- add TypeScript configuration for project setup ([1abc21f](https://github.com/tech-leads-club/agent-skills/commit/1abc21f))
+- add ESLint configuration for JSON and package files ([1a6de39](https://github.com/tech-leads-club/agent-skills/commit/1a6de39))
+- add skill generator configuration ([4b5745b](https://github.com/tech-leads-club/agent-skills/commit/4b5745b))
+- add jest configuration for skill plugin testing ([0cd9157](https://github.com/tech-leads-club/agent-skills/commit/0cd9157))
+- add initial skill plugin configuration ([1ff8f5e](https://github.com/tech-leads-club/agent-skills/commit/1ff8f5e))
+- add skill plugin project configuration ([66639f1](https://github.com/tech-leads-club/agent-skills/commit/66639f1))
+- add TypeScript configuration for skill plugin ([2d9278d](https://github.com/tech-leads-club/agent-skills/commit/2d9278d))
+- add TypeScript configuration for skill plugin ([fc2a78e](https://github.com/tech-leads-club/agent-skills/commit/fc2a78e))
+- add TypeScript configuration for skill plugin testing ([2c47698](https://github.com/tech-leads-club/agent-skills/commit/2c47698))
+- add SkillGeneratorSchema interface for skill plugin ([01e307d](https://github.com/tech-leads-club/agent-skills/commit/01e307d))
+- add SKILL.md.template for skill plugin documentation ([c0b279b](https://github.com/tech-leads-club/agent-skills/commit/c0b279b))
+- implement skill generator function for creating skills ([95b7d64](https://github.com/tech-leads-club/agent-skills/commit/95b7d64))
+- add JSON schema for skill generation configuration ([bc8d7b2](https://github.com/tech-leads-club/agent-skills/commit/bc8d7b2))
+- add .nvmrc file with Node.js version ([2b0071d](https://github.com/tech-leads-club/agent-skills/commit/2b0071d))
+
+### ❤️ Thank You
+
+- Felipe Rodrigues @felipfr
+
 ## 0.1.0-beta.0 (2026-01-25)
 
 ### 🚀 Features
