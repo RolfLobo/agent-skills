@@ -6,7 +6,7 @@ This file provides guidance to AI coding agents (Antigravity, Claude Code, Curso
 
 A curated collection of skills for AI coding agents. Skills are packaged instructions, scripts, and resources that extend agent capabilities for specialized tasks. This monorepo includes:
 
-- **CLI tool** (`@tlc/agent-skills`) for installing skills
+- **CLI tool** (`@tech-leads-club/agent-skills`) for installing skills
 - **NX plugin** for generating new skills
 - **Pre-built skills** for common development workflows
 
@@ -15,7 +15,7 @@ A curated collection of skills for AI coding agents. Skills are packaged instruc
 ```
 agent-skills/
 ├── packages/
-│   └── cli/                    # @tlc/agent-skills CLI
+│   └── cli/                    # @tech-leads-club/agent-skills CLI
 │       └── src/
 │           ├── index.ts        # Entry point
 │           ├── agents.ts       # Agent detection and mapping
@@ -43,7 +43,7 @@ agent-skills/
 The preferred way to create skills:
 
 ```bash
-nx g @tlc/skill-plugin:skill my-skill
+nx g @tech-leads-club/skill-plugin:skill my-skill
 ```
 
 This creates `skills/my-skill/SKILL.md` with the correct template.
@@ -126,10 +126,10 @@ npm run lint
 npm run format
 
 # Generate a new skill
-nx g @tlc/skill-plugin:skill {skill-name}
+nx g @tech-leads-club/skill-plugin:skill {skill-name}
 
 # Test the CLI locally
-npm run dev --workspace=@tlc/agent-skills
+npm run dev --workspace=@tech-leads-club/agent-skills
 
 # Dry-run release
 npm run release:dry
@@ -154,7 +154,7 @@ The CLI installs skills to these locations:
 
 After creating or modifying a skill:
 
-1. Install it locally: `npx @tlc/agent-skills --skill {skill-name}`
+1. Install it locally: `npx @tech-leads-club/agent-skills --skill {skill-name}`
 2. Start a new agent session
 3. Test with prompts that should trigger the skill
 4. Iterate based on real usage
