@@ -1,7 +1,13 @@
 import { Command } from 'commander'
 
-import { installSkills } from './installer'
-import { runInteractiveInstall, showAvailableSkills, showInstallResults } from './prompts'
+import { installSkills, removeSkill } from './installer'
+import {
+  runInteractiveInstall,
+  runInteractiveRemove,
+  showAvailableSkills,
+  showInstallResults,
+  showRemoveResults,
+} from './prompts'
 import { discoverSkills, getSkillByName } from './skills'
 import type { AgentType } from './types'
 
@@ -18,14 +24,12 @@ program
   .option('--copy', 'Use copy instead of symlink', false)
   .action(async (options) => {
     if (options.skill || options.agent) {
-      // Non-interactive mode
       await runNonInteractive(options)
     } else {
-      // Interactive mode
       const installOptions = await runInteractiveInstall()
       if (!installOptions) return
       const skills = discoverSkills().filter((s) => installOptions.skills.includes(s.name))
-      const results = installSkills(skills, installOptions)
+      const results = await installSkills(skills, installOptions)
       showInstallResults(results)
     }
   })
@@ -34,8 +38,25 @@ program
   .command('list')
   .alias('ls')
   .description('List available skills')
-  .action(() => {
-    showAvailableSkills()
+  .action(async () => {
+    await showAvailableSkills()
+  })
+
+program
+  .command('remove')
+  .alias('rm')
+  .description('Remove installed skills')
+  .option('-g, --global', 'Remove from global installation', false)
+  .option('-s, --skill <name>', 'Remove a specific skill')
+  .option('-a, --agent <agents...>', 'Target specific agents')
+  .action(async (options) => {
+    if (options.skill) {
+      const agents = (options.agent || ['antigravity', 'claude-code', 'cursor']) as AgentType[]
+      const results = await removeSkill(options.skill, agents, { global: options.global })
+      showRemoveResults(options.skill, results)
+    } else {
+      await runInteractiveRemove(options.global)
+    }
   })
 
 async function runNonInteractive(options: { skill?: string; agent?: string[]; global: boolean; copy: boolean }) {
@@ -55,7 +76,7 @@ async function runNonInteractive(options: { skill?: string; agent?: string[]; gl
   const agents = (options.agent || ['antigravity', 'claude-code', 'cursor']) as AgentType[]
   const method = options.copy ? 'copy' : 'symlink'
 
-  const results = installSkills(skills, {
+  const results = await installSkills(skills, {
     agents,
     skills: skills.map((s) => s.name),
     method,
