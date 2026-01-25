@@ -1,19 +1,16 @@
 import { Command } from 'commander'
 
 import { installSkills, removeSkill } from './installer'
-import {
-  runInteractiveInstall,
-  runInteractiveRemove,
-  showAvailableSkills,
-  showInstallResults,
-  showRemoveResults,
-} from './prompts'
+import { runInteractiveInstall } from './prompts/install'
+import { showAvailableSkills } from './prompts/list'
+import { runInteractiveRemove } from './prompts/remove'
+import { showInstallResults, showRemoveResults } from './prompts/results'
 import { discoverSkills, getSkillByName } from './skills'
 import type { AgentType } from './types'
 
 const program = new Command()
 
-program.name('tlc-skills').description('Install TLC Agent Skills to your AI coding agents').version('0.0.1')
+program.name('tlc-agent-skills').description('Install TLC Agent Skills to your AI coding agents').version('0.0.1')
 
 program
   .command('install', { isDefault: true })
