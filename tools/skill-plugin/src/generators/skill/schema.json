@@ -18,6 +18,11 @@
       "type": "string",
       "description": "Short description of the skill",
       "x-prompt": "Briefly describe what the skill does:"
+    },
+    "category": {
+      "type": "string",
+      "description": "Category ID for the skill (kebab-case). If the category doesn't exist, it will be created.",
+      "x-prompt": "Which category should this skill belong to? (e.g., 'development', 'creation')"
     }
   },
   "required": [
