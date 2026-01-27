@@ -15,7 +15,9 @@ export function getSkillsDirectory(): string {
   if (existsSync(devSkillsDir)) return devSkillsDir
   const pkgSkillsDir = join(__dirname, '..', SKILLS_ROOT_DIR)
   if (existsSync(pkgSkillsDir)) return pkgSkillsDir
-  throw new Error(`Skills directory not found. Checked: ${devSkillsDir}, ${pkgSkillsDir}`)
+  const bundleSkillsDir = join(__dirname, SKILLS_ROOT_DIR)
+  if (existsSync(bundleSkillsDir)) return bundleSkillsDir
+  throw new Error(`Skills directory not found. Checked: ${bundleSkillsDir}, ${pkgSkillsDir}`)
 }
 
 export function discoverSkills(): SkillInfo[] {
