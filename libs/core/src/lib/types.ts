@@ -5,10 +5,12 @@ export interface CategoryInfo {
   priority?: number
 }
 
-export interface CategoriesConfig {
-  $schema?: string
-  categories: CategoryInfo[]
-  skills: Record<string, string>
+export interface CategoryMetadata {
+  [categoryFolder: string]: {
+    name?: string
+    description?: string
+    priority?: number
+  }
 }
 
 export type AgentType =
