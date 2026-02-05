@@ -196,7 +196,7 @@ export async function blueGroupMultiSelect<T>(
     options: flatOptions,
     initialValues,
     render() {
-      const title = `${pc.blue(S_BAR)}\n${SYMBOL} ${pc.white(pc.bold(message))}\n`
+      const title = `${SYMBOL} ${pc.white(pc.bold(message))}\n`
       const backHint = allowBack ? 'esc = back, ' : ''
 
       switch (this.state) {
@@ -215,13 +215,17 @@ export async function blueGroupMultiSelect<T>(
           const PAGE_SIZE = 20
           const total = this.options.length
 
-          let startIndex = Math.max(0, this.cursor - Math.floor(PAGE_SIZE / 2))
+          const hasScrollUp = this.cursor > Math.floor(PAGE_SIZE / 2)
+          const hasScrollDown = total > PAGE_SIZE && this.cursor < total - Math.floor(PAGE_SIZE / 2)
+          const availableSlots = PAGE_SIZE - (hasScrollUp ? 1 : 0) - (hasScrollDown ? 1 : 0)
 
-          if (startIndex + PAGE_SIZE > total) {
-            startIndex = Math.max(0, total - PAGE_SIZE)
+          let startIndex = Math.max(0, this.cursor - Math.floor(availableSlots / 2))
+
+          if (startIndex + availableSlots > total) {
+            startIndex = Math.max(0, total - availableSlots)
           }
 
-          const endIndex = Math.min(startIndex + PAGE_SIZE, total)
+          const endIndex = Math.min(startIndex + availableSlots, total)
           const window = this.options.slice(startIndex, endIndex)
           const lines = window.map((option, i) => {
             const absoluteIndex = startIndex + i
@@ -236,7 +240,6 @@ export async function blueGroupMultiSelect<T>(
 
           if (startIndex > 0) {
             lines.unshift(`${pc.blue(S_BAR)}  ${pc.gray('↑ ...')}`)
-            if (lines.length > PAGE_SIZE) lines.pop()
           }
 
           if (endIndex < total) {
