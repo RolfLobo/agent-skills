@@ -1,11 +1,4 @@
 #!/usr/bin/env tsx
-/**
- * Generates skills-registry.json from the skills directory.
- * This file contains metadata about all available skills and is used
- * by the CLI to fetch skills on-demand without bundling them.
- *
- * Run: npx tsx packages/skills-catalog/src/generate-registry.ts
- */
 
 import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
@@ -15,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 const SKILLS_DIR = join(__dirname, '..', 'skills')
-const OUTPUT_FILE = join(__dirname, '..', '..', '..', 'skills-registry.json')
+const OUTPUT_FILE = join(__dirname, '..', 'skills-registry.json')
 const CATEGORY_FOLDER_PATTERN = /^\(([a-z][a-z0-9-]*)\)$/
 const CATEGORY_METADATA_FILE = '_category.json'
 
@@ -23,8 +16,8 @@ interface SkillMetadata {
   name: string
   description: string
   category: string
-  path: string // relative path from skills root
-  files: string[] // list of files in the skill
+  path: string
+  files: string[]
   author?: string
   version?: string
 }
@@ -37,8 +30,6 @@ interface CategoryMetadata {
 
 interface SkillsRegistry {
   version: string
-  generatedAt: string
-  baseUrl: string
   categories: Record<string, CategoryMetadata>
   skills: SkillMetadata[]
 }
@@ -66,12 +57,16 @@ function parseSkillFrontmatter(content: string): {
   }
 }
 
+const IGNORED_FILES = ['.DS_Store', '.gitkeep', 'Thumbs.db', '.gitignore']
+
 function getFilesInDirectory(dir: string): string[] {
   const files: string[] = []
 
   function walk(currentDir: string, prefix = '') {
     const entries = readdirSync(currentDir, { withFileTypes: true })
     for (const entry of entries) {
+      if (IGNORED_FILES.includes(entry.name) || entry.name.startsWith('.')) continue
+
       const relativePath = prefix ? `${prefix}/${entry.name}` : entry.name
       if (entry.isDirectory()) {
         walk(join(currentDir, entry.name), relativePath)
@@ -204,8 +199,6 @@ function generateRegistry(): SkillsRegistry {
 
   return {
     version: '1.0.0',
-    generatedAt: new Date().toISOString(),
-    baseUrl: 'https://cdn.jsdelivr.net/gh/tech-leads-club/agent-skills@main/packages/skills-catalog/skills',
     categories,
     skills: skills.sort((a, b) => a.name.localeCompare(b.name)),
   }
