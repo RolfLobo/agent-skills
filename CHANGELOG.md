@@ -1,3 +1,34 @@
+## 0.9.0 (2026-02-06)
+
+### 🚀 Features
+
+- add skills registry with categorized skills and descriptions ([44e1e8a](https://github.com/tech-leads-club/agent-skills/commit/44e1e8a))
+- add commands for updating and managing skills cache ([4dd2a20](https://github.com/tech-leads-club/agent-skills/commit/4dd2a20))
+- add skills catalog project configuration ([3ad8db9](https://github.com/tech-leads-club/agent-skills/commit/3ad8db9))
+- add optional forceUpdate property to InstallOptions interface ([d63dc4d](https://github.com/tech-leads-club/agent-skills/commit/d63dc4d))
+- update skill loading to use async function with spinner ([c45688d](https://github.com/tech-leads-club/agent-skills/commit/c45688d))
+- implement skills registry management and caching functionality ([af90dea](https://github.com/tech-leads-club/agent-skills/commit/af90dea))
+- implement skills discovery and management functions ([5f497da](https://github.com/tech-leads-club/agent-skills/commit/5f497da))
+- enhance interactive installation with async skill loading and updates ([5dc80d2](https://github.com/tech-leads-club/agent-skills/commit/5dc80d2))
+- enhance multi-select and confirm prompts with improved rendering and state management ([03c78c4](https://github.com/tech-leads-club/agent-skills/commit/03c78c4))
+- add spinner utility for loading states in CLI ([da26d28](https://github.com/tech-leads-club/agent-skills/commit/da26d28))
+- add skills registry with categorized skills and descriptions ([ce51aa3](https://github.com/tech-leads-club/agent-skills/commit/ce51aa3))
+- add optional isUpdate field to install options ([88fa776](https://github.com/tech-leads-club/agent-skills/commit/88fa776))
+- add prefix text to spinner for improved UI consistency ([17f47cb](https://github.com/tech-leads-club/agent-skills/commit/17f47cb))
+- add functions to retrieve installed skills and update configurations ([622980b](https://github.com/tech-leads-club/agent-skills/commit/622980b))
+- update installation summary message to reflect action type ([84cfbfb](https://github.com/tech-leads-club/agent-skills/commit/84cfbfb))
+- enhance installation wizard with skill validation and update handling ([a1ffa7b](https://github.com/tech-leads-club/agent-skills/commit/a1ffa7b))
+- update CDN URL structure and improve skill metadata fetching ([d0c44b1](https://github.com/tech-leads-club/agent-skills/commit/d0c44b1))
+- enhance skill installation process with update handling and validation ([1f478da](https://github.com/tech-leads-club/agent-skills/commit/1f478da))
+
+### 🩹 Fixes
+
+- correct output path for skills registry generation ([360d39a](https://github.com/tech-leads-club/agent-skills/commit/360d39a))
+
+### ❤️ Thank You
+
+- Felipe Rodrigues
+
 ## 0.8.1 (2026-02-05)
 
 ### 🩹 Fixes
