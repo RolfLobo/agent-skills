@@ -124,7 +124,7 @@ program
   .description('Update installed skills to the latest version')
   .option('-s, --skill <name>', 'Update a specific skill')
   .action(async (options) => {
-    console.log(pc.blue('⏳ Checking for updates...'))
+    console.log(pc.blue('⏳ Checking for skill updates...'))
 
     clearRegistryCache()
 
