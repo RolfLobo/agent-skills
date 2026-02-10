@@ -1,3 +1,19 @@
+## 0.13.0 (2026-02-10)
+
+### 🚀 Features
+
+- add TRAE agent configuration and update documentation ([93ef566](https://github.com/tech-leads-club/agent-skills/commit/93ef566))
+
+### 💅 Refactors
+
+- change installation method from 'symlink' to 'copy' ([82c451f](https://github.com/tech-leads-club/agent-skills/commit/82c451f))
+- change option from 'copy' to 'symlink' for skill installation ([b8519d8](https://github.com/tech-leads-club/agent-skills/commit/b8519d8))
+
+### ❤️ Thank You
+
+- Felipe Rodrigues @felipfr
+- may-santos
+
 ## 0.12.0 (2026-02-10)
 
 ### 🚀 Features
