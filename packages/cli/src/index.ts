@@ -47,7 +47,7 @@ program
   .option('-g, --global', 'Install globally to user home', false)
   .option('-s, --skill <name>', 'Install a specific skill')
   .option('-a, --agent <agents...>', 'Target specific agents')
-  .option('--copy', 'Use copy instead of symlink', false)
+  .option('--symlink', 'Use symlink instead of copy (may not work with all agents)', false)
   .option('-f, --force', 'Force re-download skills (bypass cache)', false)
   .action(async (options) => {
     if (options.skill || options.agent) {
@@ -71,7 +71,7 @@ program
           const installOptions: InstallOptions = {
             skills: config.skills,
             agents: config.agents,
-            method: 'symlink',
+            method: 'copy',
             global: config.global,
             forceUpdate: true,
             isUpdate: true,
@@ -207,7 +207,7 @@ async function runNonInteractive(options: {
   skill?: string
   agent?: string[]
   global: boolean
-  copy: boolean
+  symlink: boolean
   force?: boolean
 }) {
   console.log(pc.blue('⏳ Loading skills catalog...'))
@@ -233,7 +233,7 @@ async function runNonInteractive(options: {
   }
 
   const agents = (options.agent || ['antigravity', 'claude-code', 'cursor']) as AgentType[]
-  const method = options.copy ? 'copy' : 'symlink'
+  const method = options.symlink ? 'symlink' : 'copy'
 
   const results = await installSkills(skills, {
     agents,
