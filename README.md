@@ -137,7 +137,7 @@ This launches an interactive wizard:
 1. **Choose Action** — "Install skills" or "Update installed skills"
 2. **Browse & Select** — Filter by category or search
 3. **Choose agents** — Pick target agents (Cursor, Claude Code, etc.)
-4. **Installation method** — Symlink (recommended) or Copy
+4. **Installation method** — Copy (recommended) or Symlink
 5. **Scope** — Global (user home) or Local (project only)
 
 Each step shows a **← Back** option to return and revise your choices.
