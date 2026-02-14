@@ -108,6 +108,14 @@ export const agents: Record<AgentType, AgentConfig> = {
     globalSkillsDir: join(home, '.trae/skills'),
     detectInstalled: () => existsSync(join(home, '.trae')) || existsSync(join(projectRoot, '.trae')),
   },
+  kiro: {
+    name: 'kiro',
+    displayName: 'Kiro',
+    description: 'AI Agent with workspace and global skill scopes',
+    skillsDir: '.kiro/skills',
+    globalSkillsDir: join(home, '.kiro/skills'),
+    detectInstalled: () => existsSync(join(home, '.kiro')) || existsSync(join(projectRoot, '.kiro')),
+  },
 
   // Tier 3: Enterprise & specialized
   'amazon-q': {
