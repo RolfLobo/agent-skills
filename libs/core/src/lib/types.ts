@@ -32,6 +32,7 @@ export type AgentType =
   | 'sourcegraph'
   | 'droid'
   | 'trae'
+  | 'kiro'
 
 export interface AgentConfig {
   name: string
