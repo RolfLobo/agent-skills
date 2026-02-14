@@ -69,38 +69,21 @@ packages/skills-catalog/skills/
 
 Install skills to any of these AI coding agents:
 
-**Tier 1 — Most Popular**
+<div align="center">
+<br />
 
-<p align="center">
-  <a href="https://cursor.com"><img src="https://img.shields.io/badge/Cursor-000000?style=for-the-badge&logo=cursor&logoColor=white" alt="Cursor" /></a>
-  <a href="https://claude.ai/code"><img src="https://img.shields.io/badge/Claude_Code-191919?style=for-the-badge&logo=anthropic&logoColor=white" alt="Claude Code" /></a>
-  <a href="https://github.com/features/copilot"><img src="https://img.shields.io/badge/GitHub_Copilot-000000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Copilot" /></a>
-  <a href="https://codeium.com/windsurf"><img src="https://img.shields.io/badge/Windsurf-0066FF?style=for-the-badge&logo=codeium&logoColor=white" alt="Windsurf" /></a>
-  <a href="https://github.com/cline/cline"><img src="https://img.shields.io/badge/Cline-4A154B?style=for-the-badge&logo=visual-studio-code&logoColor=white" alt="Cline" /></a>
-</p>
+|                     Tier 1 (Popular)                      |                            Tier 2 (Rising)                             |                   Tier 3 (Enterprise)                   |
+| :-------------------------------------------------------: | :--------------------------------------------------------------------: | :-----------------------------------------------------: |
+|         **[Claude Code](https://claude.ai/code)**         |                    **[Aider](https://aider.chat)**                     |   **[Amazon Q](https://aws.amazon.com/q/developer/)**   |
+|        **[Cline](https://github.com/cline/cline)**        |               **[Antigravity](https://idx.google.com)**                |       **[Augment](https://www.augmentcode.com)**        |
+|             **[Cursor](https://cursor.com)**              | **[Gemini CLI](https://ai.google.dev/gemini-api/docs/code-execution)** |    **[Droid (Factory.ai)](https://www.factory.ai)**     |
+| **[GitHub Copilot](https://github.com/features/copilot)** |                  **[Kilo Code](https://kilocode.ai)**                  | **[OpenCode](https://github.com/opencode-ai/opencode)** |
+|       **[Windsurf](https://codeium.com/windsurf)**        |                     **[Kiro](https://kiro.dev/)**                      |  **[Sourcegraph Cody](https://sourcegraph.com/cody)**   |
+|                                                           |    **[OpenAI Codex](https://openai.com/index/introducing-codex/)**     |         **[Tabnine](https://www.tabnine.com)**          |
+|                                                           |                    **[Roo Code](https://roo.dev)**                     |                                                         |
+|                                                           |                    **[TRAE](https://docs.trae.ai)**                    |                                                         |
 
-**Tier 2 — Rising Stars**
-
-<p align="center">
-  <a href="https://aider.chat"><img src="https://img.shields.io/badge/Aider-FF6B6B?style=for-the-badge&logo=terminal&logoColor=white" alt="Aider" /></a>
-  <a href="https://openai.com/index/introducing-codex/"><img src="https://img.shields.io/badge/OpenAI_Codex-412991?style=for-the-badge&logo=openai&logoColor=white" alt="OpenAI Codex" /></a>
-  <a href="https://ai.google.dev/gemini-api/docs/code-execution"><img src="https://img.shields.io/badge/Gemini_CLI-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Gemini CLI" /></a>
-  <a href="https://idx.google.com"><img src="https://img.shields.io/badge/Antigravity-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Antigravity" /></a>
-  <a href="https://roo.dev"><img src="https://img.shields.io/badge/Roo_Code-FF4081?style=for-the-badge&logo=visual-studio-code&logoColor=white" alt="Roo Code" /></a>
-  <a href="https://kilocode.ai"><img src="https://img.shields.io/badge/Kilo_Code-00D4AA?style=for-the-badge&logo=visual-studio-code&logoColor=white" alt="Kilo Code" /></a>
-  <a href="https://docs.trae.ai"><img src="https://img.shields.io/badge/TRAE-8B5CF6?style=for-the-badge&logo=visual-studio-code&logoColor=white" alt="TRAE" /></a>
-</p>
-
-**Tier 3 — Enterprise & Specialized**
-
-<p align="center">
-  <a href="https://aws.amazon.com/q/developer/"><img src="https://img.shields.io/badge/Amazon_Q-FF9900?style=for-the-badge&logo=amazon-aws&logoColor=white" alt="Amazon Q" /></a>
-  <a href="https://www.augmentcode.com"><img src="https://img.shields.io/badge/Augment-6366F1?style=for-the-badge&logo=visual-studio-code&logoColor=white" alt="Augment" /></a>
-  <a href="https://www.tabnine.com"><img src="https://img.shields.io/badge/Tabnine-5B5BD6?style=for-the-badge&logo=tabnine&logoColor=white" alt="Tabnine" /></a>
-  <a href="https://github.com/opencode-ai/opencode"><img src="https://img.shields.io/badge/OpenCode-1A1A1A?style=for-the-badge&logo=terminal&logoColor=white" alt="OpenCode" /></a>
-  <a href="https://sourcegraph.com/cody"><img src="https://img.shields.io/badge/Sourcegraph_Cody-FF5733?style=for-the-badge&logo=sourcegraph&logoColor=white" alt="Sourcegraph Cody" /></a>
-  <a href="https://www.factory.ai"><img src="https://img.shields.io/badge/Droid_(Factory.ai)-121212?style=for-the-badge&logo=robot&logoColor=white" alt="Droid (Factory.ai)" /></a>
-</p>
+</div>
 
 <p align="center">
   <sub>Missing your favorite agent? <a href="https://github.com/tech-leads-club/agent-skills/issues/new"><strong>Open an issue</strong></a> and we'll add support!</sub>
