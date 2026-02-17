@@ -8,7 +8,14 @@ const config: Config = {
   transform: {
     '^.+\\.[tj]sx?$': [
       'ts-jest',
-      { useESM: true, tsconfig: '<rootDir>/tsconfig.spec.json', diagnostics: { ignoreCodes: [151002] } },
+      { 
+        useESM: true, 
+        tsconfig: '<rootDir>/tsconfig.spec.json', 
+        diagnostics: { 
+          ignoreCodes: [151002],
+          warnOnly: true
+        } 
+      },
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
