@@ -3,6 +3,19 @@ import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node
 import { homedir } from 'node:os'
 import { join } from 'node:path'
 
+import {
+  CACHE_BASE_DIR,
+  CACHE_NAMESPACE,
+  FETCH_TIMEOUT_MS,
+  MAX_CONCURRENT_DOWNLOADS,
+  MAX_RETRIES,
+  REGISTRY_CACHE_FILENAME,
+  REGISTRY_CACHE_TTL_MS,
+  RETRY_BASE_DELAY_MS,
+  SKILL_META_FILE,
+  SKILLS_CATALOG_PACKAGE,
+  SKILLS_SUBDIR,
+} from '../constants'
 import type { CategoryInfo, SkillInfo } from '../types'
 
 export interface SkillMetadata {
@@ -20,8 +33,6 @@ interface CachedSkillMeta {
   contentHash: string
   downloadedAt: number
 }
-
-const SKILL_META_FILE = '.skill-meta.json'
 
 export interface CategoryMetadata {
   name: string
@@ -42,20 +53,20 @@ interface CachedRegistry {
 }
 
 const CONFIG = {
-  cacheTtlMs: 24 * 60 * 60 * 1000,
-  fetchTimeoutMs: 15_000,
-  maxRetries: 3,
-  retryBaseDelayMs: 500,
-  maxConcurrentDownloads: 10,
+  cacheTtlMs: REGISTRY_CACHE_TTL_MS,
+  fetchTimeoutMs: FETCH_TIMEOUT_MS,
+  maxRetries: MAX_RETRIES,
+  retryBaseDelayMs: RETRY_BASE_DELAY_MS,
+  maxConcurrentDownloads: MAX_CONCURRENT_DOWNLOADS,
 } as const
 
 const PATHS = {
-  cacheDir: join(homedir(), '.cache', 'tlc-skills'),
+  cacheDir: join(homedir(), CACHE_BASE_DIR, CACHE_NAMESPACE),
   get registryCacheFile() {
-    return join(this.cacheDir, 'registry.json')
+    return join(this.cacheDir, REGISTRY_CACHE_FILENAME)
   },
   get skillsCacheDir() {
-    return join(this.cacheDir, 'skills')
+    return join(this.cacheDir, SKILLS_SUBDIR)
   },
 } as const
 
@@ -64,10 +75,10 @@ const URLS = {
     return process.env.SKILLS_CDN_REF ?? 'latest'
   },
   get cdnBase() {
-    return `https://cdn.jsdelivr.net/npm/@tech-leads-club/skills-catalog@${this.cdnRef}`
+    return `https://cdn.jsdelivr.net/npm/${SKILLS_CATALOG_PACKAGE}@${this.cdnRef}`
   },
   get fallbackCdnBase() {
-    return `https://unpkg.com/@tech-leads-club/skills-catalog@${this.cdnRef}`
+    return `https://unpkg.com/${SKILLS_CATALOG_PACKAGE}@${this.cdnRef}`
   },
   get registry() {
     return `${this.cdnBase}/skills-registry.json`
