@@ -27,7 +27,7 @@ const {
 
 describe('config service', () => {
   const mockHome = '/home/testuser'
-  const expectedConfigPath = join(mockHome, '.tlc-skills', 'config.json')
+  const expectedConfigPath = join(mockHome, '.agent-skills', 'config.json')
 
   beforeEach(() => {
     jest.clearAllMocks()
@@ -112,9 +112,9 @@ describe('config service', () => {
 
       await saveConfig({ firstLaunchComplete: true })
 
-      expect(mockMkdir).toHaveBeenCalledWith(join(mockHome, '.tlc-skills'), { recursive: true })
+      expect(mockMkdir).toHaveBeenCalledWith(join(mockHome, '.agent-skills'), { recursive: true })
       expect(mockWriteFile).toHaveBeenCalledTimes(2) // temp file + actual file
-      const lastCall = (mockWriteFile.mock.calls[1] as [string, string, string])
+      const lastCall = mockWriteFile.mock.calls[1] as [string, string, string]
       expect(lastCall[0]).toBe(expectedConfigPath)
       const savedConfig = JSON.parse(lastCall[1])
       expect(savedConfig).toEqual({
@@ -136,7 +136,7 @@ describe('config service', () => {
 
       await saveConfig({ shortcutsOverlayDismissed: true })
 
-      const lastCall = (mockWriteFile.mock.calls[1] as [string, string, string])
+      const lastCall = mockWriteFile.mock.calls[1] as [string, string, string]
       const savedConfig = JSON.parse(lastCall[1])
       expect(savedConfig).toEqual({
         firstLaunchComplete: true,
@@ -198,7 +198,7 @@ describe('config service', () => {
 
       await markFirstLaunchComplete()
 
-      const lastCall = (mockWriteFile.mock.calls[1] as [string, string, string])
+      const lastCall = mockWriteFile.mock.calls[1] as [string, string, string]
       const savedConfig = JSON.parse(lastCall[1])
       expect(savedConfig.firstLaunchComplete).toBe(true)
     })
@@ -248,7 +248,7 @@ describe('config service', () => {
 
       await markShortcutsDismissed()
 
-      const lastCall = (mockWriteFile.mock.calls[1] as [string, string, string])
+      const lastCall = mockWriteFile.mock.calls[1] as [string, string, string]
       const savedConfig = JSON.parse(lastCall[1])
       expect(savedConfig.shortcutsOverlayDismissed).toBe(true)
     })

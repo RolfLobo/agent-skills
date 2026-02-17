@@ -18,12 +18,11 @@ jest.unstable_mockModule('node:os', () => ({
   homedir: mockHomedir,
 }))
 
-const { getCachedUpdate, setCachedUpdate, isCacheValid, clearCache } =
-  await import('../update-cache')
+const { getCachedUpdate, setCachedUpdate, isCacheValid, clearCache } = await import('../update-cache')
 
 describe('update-cache service', () => {
   const mockHome = '/home/testuser'
-  const expectedCachePath = join(mockHome, '.tlc-skills', 'cache.json')
+  const expectedCachePath = join(mockHome, '.agent-skills', 'cache.json')
   const CACHE_TTL_MS = 24 * 60 * 60 * 1000 // 24 hours
 
   beforeEach(() => {
@@ -78,9 +77,7 @@ describe('update-cache service', () => {
     })
 
     it('should return null when lastUpdateCheck is not a number', async () => {
-      mockReadFile.mockResolvedValue(
-        JSON.stringify({ lastUpdateCheck: 'not-a-number', latestVersion: '1.2.3' }),
-      )
+      mockReadFile.mockResolvedValue(JSON.stringify({ lastUpdateCheck: 'not-a-number', latestVersion: '1.2.3' }))
 
       const cache = await getCachedUpdate()
 
@@ -109,7 +106,7 @@ describe('update-cache service', () => {
       await setCachedUpdate('1.2.3')
       const afterTime = Date.now()
 
-      expect(mockMkdir).toHaveBeenCalledWith(join(mockHome, '.tlc-skills'), { recursive: true })
+      expect(mockMkdir).toHaveBeenCalledWith(join(mockHome, '.agent-skills'), { recursive: true })
       expect(mockWriteFile).toHaveBeenCalledTimes(1)
 
       const [path, data, encoding] = mockWriteFile.mock.calls[0] as [string, string, string]
