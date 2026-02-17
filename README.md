@@ -209,11 +209,11 @@ The CLI fetches skills **on-demand** from our CDN:
 
 ### Caching
 
-Downloaded skills are cached in `~/.cache/tlc-skills/` for offline use.
+Downloaded skills are cached in `~/.cache/agent-skills/` for offline use.
 
 ```bash
 # Clear the cache
-rm -rf ~/.cache/tlc-skills
+rm -rf ~/.cache/agent-skills
 ```
 
 ## 🛠 For Contributors
