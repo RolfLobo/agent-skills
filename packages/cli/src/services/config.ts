@@ -2,7 +2,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { homedir } from 'node:os'
 import { dirname, join } from 'node:path'
 
-import { CONFIG_DIR, CONFIG_FILE, CURRENT_CONFIG_VERSION } from '../constants'
+import { CONFIG_DIR, CONFIG_FILE, CURRENT_CONFIG_VERSION } from '../utils/constants'
 
 export interface UserConfig {
   firstLaunchComplete: boolean
