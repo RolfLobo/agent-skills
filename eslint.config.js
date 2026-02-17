@@ -34,6 +34,19 @@ export default defineConfig([
     files: ['packages/*/package.json'],
     plugins: { '@nx': nxPlugin },
     languageOptions: { parser: jsoncParser },
-    rules: { '@nx/dependency-checks': ['error', { ignoredDependencies: ['@tech-leads-club/core'] }] },
+    rules: {
+      '@nx/dependency-checks': [
+        'error',
+        {
+          ignoredDependencies: [
+            '@tech-leads-club/core',
+            '@tailwindcss/postcss', // Used in postcss.config.cjs
+            'tailwindcss', // Used in global.css via @import
+            'github-markdown-css', // Used in global.css via @import
+            'highlight.js', // Used in global.css via @import
+          ],
+        },
+      ],
+    },
   },
 ])
