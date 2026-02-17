@@ -5,12 +5,13 @@ import { join, normalize, relative, resolve, sep } from 'node:path'
 import type { AgentType, InstallOptions, InstallResult, SkillInfo } from '../types'
 import { getAgentConfig } from './agents'
 import { logAudit } from './audit-log'
+import { AGENTS_DIR, CANONICAL_SKILLS_DIR } from '../constants'
 import { isGloballyInstalled } from './global-path'
 import { addSkillToLock, getSkillFromLock, removeSkillFromLock } from './lockfile'
 import { findProjectRoot } from './project-root'
 import { getCachedContentHash } from './registry'
 
-const CANONICAL_SKILLS_DIR = join('.agents', 'skills')
+const CANONICAL_SKILLS_PATH = join(AGENTS_DIR, CANONICAL_SKILLS_DIR)
 
 type InstallMode = 'symlink-global' | 'symlink-local' | 'copy-global' | 'copy-local'
 
@@ -261,9 +262,9 @@ export const getInstallPath = (skillName: string, agent: AgentType, options: { g
 export const getCanonicalPath = (skillName: string, options: { global?: boolean } = {}): string => {
   const safeSkillName = sanitizeName(skillName)
   const baseDir = options.global ? homedir() : findProjectRoot()
-  const canonicalPath = join(baseDir, CANONICAL_SKILLS_DIR, safeSkillName)
+  const canonicalPath = join(baseDir, CANONICAL_SKILLS_PATH, safeSkillName)
 
-  if (!isPathSafe(join(baseDir, CANONICAL_SKILLS_DIR), canonicalPath)) {
+  if (!isPathSafe(join(baseDir, CANONICAL_SKILLS_PATH), canonicalPath)) {
     throw new Error('Invalid skill name: potential path traversal detected')
   }
 
