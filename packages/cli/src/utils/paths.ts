@@ -14,13 +14,6 @@ export function getSkillsCatalogPath(): string {
 }
 
 /**
- * Checks if running in local development mode (skills catalog exists).
- */
-export function isLocalDevMode(): boolean {
-  return existsSync(getSkillsCatalogPath())
-}
-
-/**
  * Gets the path to a package in the monorepo.
  */
 export function getPackagePath(packageName: string): string {
@@ -35,8 +28,23 @@ export function getWorkspaceRoot(): string {
 }
 
 /**
+ * Checks if the local skills catalog exists (dev mode).
+ */
+export function hasLocalSkillsCatalog(): boolean {
+  return existsSync(getSkillsCatalogPath())
+}
+
+/**
+ * Gets the local skills directory if it exists, null otherwise.
+ */
+export function getLocalSkillsDirectory(): string | null {
+  const path = getSkillsCatalogPath()
+  return existsSync(path) ? path : null
+}
+
+/**
  * Resolves paths relative to the monorepo root.
- * In dev mode (tsx): __dirname = packages/cli/src/services/
+ * In dev mode (tsx): __dirname = packages/cli/src/utils/
  * Goes 4 levels up to reach monorepo root.
  */
 function getMonorepoRoot(): string {
