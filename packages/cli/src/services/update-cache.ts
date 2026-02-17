@@ -2,9 +2,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { homedir } from 'node:os'
 import { dirname, join } from 'node:path'
 
-const CONFIG_DIR = '.tlc-skills'
-const CACHE_FILE = 'cache.json'
-const CACHE_TTL_MS = 24 * 60 * 60 * 1000 // 24 hours
+import { CACHE_FILE, UPDATE_CHECK_CACHE_TTL_MS, CONFIG_DIR } from '../constants'
 
 export interface UpdateCache {
   lastUpdateCheck: number
@@ -52,7 +50,7 @@ export async function isCacheValid(): Promise<boolean> {
   if (!cache) return false
   const now = Date.now()
   const age = now - cache.lastUpdateCheck
-  return age < CACHE_TTL_MS
+  return age < UPDATE_CHECK_CACHE_TTL_MS
 }
 
 export async function clearCache(): Promise<void> {
