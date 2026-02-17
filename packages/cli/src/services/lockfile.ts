@@ -5,11 +5,9 @@ import { dirname, join } from 'node:path'
 import { z } from 'zod'
 
 import type { AgentType } from '../types'
+import { AGENTS_DIR, LOCK_FILE, LOCK_FILE_BACKUP } from '../constants'
 import { findProjectRoot } from './project-root'
 
-const AGENTS_DIR = '.agents'
-const LOCK_FILE = '.skill-lock.json'
-const LOCK_FILE_BACKUP = '.skill-lock.json.backup'
 const CURRENT_VERSION = 2
 
 const AgentTypeSchema = z.enum(AGENT_TYPES as unknown as [string, ...string[]])
