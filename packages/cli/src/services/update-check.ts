@@ -1,6 +1,6 @@
 import packageJson from 'package-json'
 
-import { PACKAGE_NAME } from '../constants'
+import { PACKAGE_NAME } from '../utils/constants'
 import { PACKAGE_VERSION } from './package-info'
 
 export async function checkForUpdates(currentVersion: string): Promise<string | null> {
