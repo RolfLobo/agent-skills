@@ -44,14 +44,14 @@
         "releaseTagPattern": "skills-catalog-v{version}"
       }
     },
+    "git": {
+      "commit": true,
+      "tag": true
+    },
     "version": {
       "conventionalCommits": true,
       "fallbackCurrentVersionResolver": "disk",
-      "preVersionCommand": "npx nx run-many -t build --skip-nx-cache",
-      "git": {
-        "commit": true,
-        "tag": true
-      }
+      "preVersionCommand": "npx nx run-many -t build --skip-nx-cache"
     },
     "conventionalCommits": {
       "types": {
@@ -76,11 +76,7 @@
       "projectChangelogs": {
         "createRelease": "github"
       },
-      "workspaceChangelog": false,
-      "git": {
-        "commit": true,
-        "tag": true
-      }
+      "workspaceChangelog": false
     }
   },
   "targetDefaults": {
