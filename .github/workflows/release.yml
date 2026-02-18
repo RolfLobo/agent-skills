@@ -137,9 +137,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     environment: publish
-    concurrency:
-      group: release-${{ github.ref }}
-      cancel-in-progress: false
     if: |
       github.event_name == 'push' &&
       github.ref == 'refs/heads/main' &&
