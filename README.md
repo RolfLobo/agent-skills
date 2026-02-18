@@ -27,11 +27,13 @@
 <h1 align="center">🧠 Agent Skills</h1>
 
 <p align="center">
-  <strong>A curated collection of skills for AI coding agents</strong>
+  <strong>The secure, validated skill registry for professional AI coding agents</strong>
 </p>
 
 <p align="center">
-  Extend the capabilities of <b>Antigravity</b>, <b>Claude Code</b>, <b>Cursor</b>, <b>GitHub Copilot</b>, and more with reusable, packaged instructions.
+  In an ecosystem where <a href="https://github.com/snyk/agent-scan/blob/main/.github/reports/skills-report.pdf">over 13% of marketplace skills contain critical vulnerabilities</a>, 
+  <b>Agent Skills</b> stands apart as a hardened library of <b>verified</b>, <b>tested</b>, and <b>safe</b> capabilities.
+  Extend <b>Antigravity</b>, <b>Claude Code</b>, <b>Cursor</b>, and more with absolute confidence.
 </p>
 
 <p align="center">
@@ -41,6 +43,7 @@
 ## 📖 Table of Contents
 
 - [✨ What are Skills?](#-what-are-skills)
+- [🛡️ Security & Trust](#️-security--trust)
 - [🤖 Supported Agents](#-supported-agents)
 - [🌟 Featured Skills](#-featured-skills)
 - [🚀 Quick Start](#-quick-start)
@@ -65,6 +68,31 @@ packages/skills-catalog/skills/
       templates/        ← File templates
       references/       ← On-demand documentation
 ```
+
+## 🛡️ Security & Trust
+
+Your environment's safety is our top priority. Unlike open marketplaces where **13.4% of skills contain critical issues**, `agent-skills` is a managed, hardened library.
+
+### Vulnerability Mitigation
+
+We directly address the threats identified in the [Snyk 2026 Agent Threat Report](https://github.com/snyk/agent-scan/blob/main/.github/reports/skills-report.pdf):
+
+| Threat                   | Public Marketplaces                                         | Agent Skills Guarantee                                                                                          |
+| :----------------------- | :---------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------- |
+| **Malicious Payloads**   | Obfuscated code, binaries, or "black box" instructions      | **100% Open Source**: No binaries, fully readable text/code. Every line is auditable.                           |
+| **Credential Theft**     | Skills silently exfiltrating env vars to remote servers     | **Static Analysis**: CI/CD pipeline blocks skills with suspicious network calls or secret access.               |
+| **Supply Chain Attacks** | Authors pushing malicious updates to existing skills        | **Immutable Integrity**: Lockfiles and content-hashing ensure code never changes without your explicit upgrade. |
+| **Prompt Injection**     | Hidden instructions to hijack agent behavior ("jailbreaks") | **Human Curation**: Every prompt is manually code-reviewed by maintainers for safety boundaries.                |
+
+### CLI Defense-in-Depth
+
+The installer itself implements strict technical controls:
+
+- **Filesystem Isolation**: Recursive path traversal protection preventing access outside target directories.
+- **Input Sanitization**: Strict validation of skill names and paths to neutralize injection vectors.
+- **Symlink Guard**: Safe handling of symbolic links to prevent aliasing attacks.
+- **Integrity Verification**: Lockfile-based validation ensuring reproducible and authorized skill management.
+- **Automated Auditing**: All skills undergo continuous security scanning with [mcp-scan](https://github.com/invariantlabs-ai/mcp-scan).
 
 ## 🤖 Supported Agents
 
@@ -365,7 +393,7 @@ If `mcp-scan` flags a finding that is intentional (e.g. a first-party MCP server
 **`packages/skills-catalog/security-scan-allowlist.yaml`**
 
 ```yaml
-version: "1.0.0"
+version: '1.0.0'
 
 entries:
   - skill: my-skill
@@ -373,8 +401,8 @@ entries:
     reason: >
       Fetches from trusted first-party API — expected behavior.
     allowedBy: github.com/username
-    allowedAt: "2026-01-01"
-    expiresAt: "2027-01-01"  # Optional but recommended
+    allowedAt: '2026-01-01'
+    expiresAt: '2027-01-01' # Optional but recommended
 ```
 
 - Match is by `skill + code` — no re-scan needed after adding an entry
