@@ -1,11 +1,12 @@
 import { Box, Text, useInput } from 'ink'
 import Spinner from 'ink-spinner'
+import { useAtomValue } from 'jotai'
 import { useEffect, useMemo, useState } from 'react'
 
+import { installedSkillsAtom } from '../atoms/installedSkills'
 import { Header } from '../components/Header'
 import { InstallResults } from '../components/InstallResults'
 import { MultiSelectPrompt } from '../components/MultiSelectPrompt'
-import { useInstalledSkills } from '../hooks/useInstalledSkills'
 import { useInstaller } from '../hooks/useInstaller'
 import { useSkills } from '../hooks/useSkills'
 import { getUpdatableSkills } from '../services/registry'
@@ -21,21 +22,21 @@ export function UpdateView({ selectedAgents, onExit }: { selectedAgents?: AgentT
   const [showAgentSelect, setShowAgentSelect] = useState(!selectedAgents)
   const [updatableSkills, setUpdatableSkills] = useState<SkillInfo[]>([])
   const { install, progress, results, installing } = useInstaller()
-  const { installedSkills, loading: loadingInstalled } = useInstalledSkills()
+  const installedSkills = useAtomValue(installedSkillsAtom)
   const { skills, loading: loadingSkills } = useSkills()
 
   const activeAgents = selectedAgents || internalAgents
 
   const installedList = useMemo(() => {
-    if (loadingInstalled || loadingSkills) return []
+    if (loadingSkills) return []
     const installedNames = new Set(Object.keys(installedSkills))
 
     return skills.filter((s) => {
       if (!installedNames.has(s.name)) return false
       const agents = installedSkills[s.name] || []
-      return agents.some((a) => activeAgents.includes(a))
+      return agents.some((a: AgentType) => activeAgents.includes(a))
     })
-  }, [installedSkills, skills, loadingInstalled, loadingSkills, activeAgents])
+  }, [installedSkills, skills, loadingSkills, activeAgents])
 
   useEffect(() => {
     if (installedList.length === 0) {
@@ -58,7 +59,14 @@ export function UpdateView({ selectedAgents, onExit }: { selectedAgents?: AgentT
   }, [installedList])
 
   useInput((_, key) => {
-    if (key.escape && !installing && !installComplete && !checkingUpdates && updateCheckComplete && updatableSkills.length === 0) {
+    if (
+      key.escape &&
+      !installing &&
+      !installComplete &&
+      !checkingUpdates &&
+      updateCheckComplete &&
+      updatableSkills.length === 0
+    ) {
       onExit()
     }
   })
@@ -81,7 +89,7 @@ export function UpdateView({ selectedAgents, onExit }: { selectedAgents?: AgentT
     const involvedAgents = new Set<AgentType>()
     selectedSkills.forEach((s) => {
       const agents = installedSkills[s.name] || []
-      agents.forEach((a) => {
+      agents.forEach((a: AgentType) => {
         if (activeAgents.includes(a)) involvedAgents.add(a)
       })
     })
@@ -121,7 +129,7 @@ export function UpdateView({ selectedAgents, onExit }: { selectedAgents?: AgentT
     )
   }
 
-  if (loadingInstalled || loadingSkills || checkingUpdates) {
+  if (loadingSkills || checkingUpdates) {
     return (
       <Box flexDirection="column" paddingX={1}>
         <Header />
