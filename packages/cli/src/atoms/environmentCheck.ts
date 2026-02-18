@@ -1,13 +1,13 @@
 import { atom } from 'jotai'
+import { unwrap } from 'jotai/utils'
 
 import { isGloballyInstalled } from '../services/global-path'
 import { checkForUpdates, getCurrentVersion } from '../services/update-check'
 
-interface EnvironmentCheckState {
+export interface EnvironmentCheckState {
   updateAvailable: string | null
   currentVersion: string
   isGlobal: boolean
-  loading: boolean
 }
 
 const runCheck = async (): Promise<EnvironmentCheckState> => {
@@ -19,7 +19,17 @@ const runCheck = async (): Promise<EnvironmentCheckState> => {
     Promise.resolve(isGloballyInstalled()).catch(() => false),
   ])
 
-  return { updateAvailable: updateAvailable ?? null, currentVersion, isGlobal: isGlobal as boolean, loading: false }
+  return { updateAvailable: updateAvailable ?? null, currentVersion, isGlobal: isGlobal as boolean }
 }
 
-export const environmentCheckAtom = atom<Promise<EnvironmentCheckState>>(runCheck())
+const environmentCheckAsyncAtom = atom<Promise<EnvironmentCheckState>>(runCheck())
+
+export const environmentCheckAtom = unwrap(
+  environmentCheckAsyncAtom,
+  (prev) =>
+    prev ?? {
+      updateAvailable: null,
+      currentVersion: getCurrentVersion(),
+      isGlobal: false,
+    },
+)
