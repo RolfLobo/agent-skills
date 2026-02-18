@@ -103,6 +103,17 @@ program
     render(React.createElement(App, { command: 'credits' }))
   })
 
+// Audit log command
+program
+  .command('audit')
+  .description('View audit log of skill operations')
+  .option('-n, --limit <number>', 'Number of entries to show', '10')
+  .option('--path', 'Show audit log file path')
+  .action(async (options) => {
+    const { runCliAudit } = await import('./cli/audit')
+    await runCliAudit(options)
+  })
+
 program.parse(process.argv)
 
 function shouldUseInteractiveMode(options: Record<string, unknown>): boolean {
