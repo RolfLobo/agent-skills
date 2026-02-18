@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { installSkills } from '../services/installer'
+import { getSkillWithPath } from '../services/skills-provider'
 import type { InstallOptions, InstallResult, SkillInfo } from '../types'
 
 export function useInstaller() {
@@ -11,11 +12,19 @@ export function useInstaller() {
 
   const install = async (skills: SkillInfo[], options: InstallOptions) => {
     setInstalling(true)
-    setProgress({ current: 0, total: skills.length * options.agents.length, skill: 'Initializing...' })
     setError(null)
+    setProgress({ current: 0, total: skills.length * options.agents.length, skill: 'Downloading...' })
+
+    const resolvedSkills: SkillInfo[] = []
+    for (const skill of skills) {
+      const resolved = skill.path ? skill : await getSkillWithPath(skill.name)
+      if (resolved) resolvedSkills.push(resolved)
+    }
+
+    setProgress({ current: 0, total: resolvedSkills.length * options.agents.length, skill: 'Installing...' })
 
     try {
-      const res = await installSkills(skills, options)
+      const res = await installSkills(resolvedSkills, options)
       setResults(res)
       return res
     } catch (err: unknown) {
