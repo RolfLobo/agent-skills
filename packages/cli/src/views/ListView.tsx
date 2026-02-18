@@ -1,23 +1,24 @@
 import { Box, Text } from 'ink'
+import { useAtomValue } from 'jotai'
 import { useMemo } from 'react'
 
+import { installedSkillsAtom } from '../atoms/installedSkills'
 import { Header } from '../components/Header'
-import { useInstalledSkills } from '../hooks/useInstalledSkills'
 import { useSkills } from '../hooks/useSkills'
 import { colors } from '../theme'
 import { SkillBrowser } from './SkillBrowser'
 
 export function ListView({ onExit }: { onExit: () => void }) {
-  const { installedSkills, loading: loadingInstalled } = useInstalledSkills()
+  const installedSkills = useAtomValue(installedSkillsAtom)
   const { skills, loading: loadingSkills } = useSkills()
 
   const installedList = useMemo(() => {
-    if (loadingInstalled || loadingSkills) return []
+    if (loadingSkills) return []
     const installedNames = new Set(Object.keys(installedSkills))
     return skills.filter((s) => installedNames.has(s.name))
-  }, [installedSkills, skills, loadingInstalled, loadingSkills])
+  }, [installedSkills, skills, loadingSkills])
 
-  if (loadingInstalled || loadingSkills) {
+  if (loadingSkills) {
     return (
       <Box flexDirection="column" padding={1}>
         <Header />
