@@ -49,3 +49,4 @@ runs:
         name: ${{ inputs.artifact-name }}
         path: .security-scan-results.json
         retention-days: ${{ inputs.retention-days }}
+        include-hidden-files: true
