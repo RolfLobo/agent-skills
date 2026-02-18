@@ -15,6 +15,7 @@ interface MultiSelectPromptProps<T> {
   items: MultiSelectOption<T>[]
   onSubmit: (selected: T[]) => void
   onCancel?: () => void
+  onChange?: (selected: T[]) => void
   initialSelected?: T[]
   limit?: number
 }
@@ -23,6 +24,7 @@ export function MultiSelectPrompt<T>({
   items,
   onSubmit,
   onCancel,
+  onChange,
   initialSelected = [],
   limit = 10,
 }: MultiSelectPromptProps<T>) {
@@ -93,17 +95,24 @@ export function MultiSelectPrompt<T>({
       const item = items[focusIndex]
 
       if (selected.includes(item.value)) {
-        setSelected(selected.filter((v) => v !== item.value))
+        const newSelected = selected.filter((v) => v !== item.value)
+        setSelected(newSelected)
+        onChange?.(newSelected)
       } else {
-        setSelected([...selected, item.value])
+        const newSelected = [...selected, item.value]
+        setSelected(newSelected)
+        onChange?.(newSelected)
       }
     }
 
     if (input === 'a' && key.ctrl) {
       if (selected.length === items.length) {
         setSelected([])
+        onChange?.([])
       } else {
-        setSelected(items.map((i) => i.value))
+        const all = items.map((i) => i.value)
+        setSelected(all)
+        onChange?.(all)
       }
     }
   })
