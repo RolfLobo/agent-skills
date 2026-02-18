@@ -23,7 +23,7 @@ export function AgentSelector({ onSelect, onBack }: AgentSelectorProps) {
   const termRows = stdout?.rows ?? 40
   const listLimit = Math.max(3, termRows - CHROME_LINES)
 
-  const { allAgents, installedAgents, selectedAgents, loading } = useAgents()
+  const { allAgents, installedAgents, selectedAgents, setSelectedAgents, loading } = useAgents()
 
   const agentShortcuts: ShortcutEntry[] = [
     { key: 'space', description: 'Toggle selection' },
@@ -95,6 +95,7 @@ export function AgentSelector({ onSelect, onBack }: AgentSelectorProps) {
             initialSelected={selectedAgents}
             onSubmit={onSelect}
             onCancel={onBack}
+            onChange={setSelectedAgents}
             limit={listLimit}
           />
         </>
