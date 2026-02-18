@@ -11,9 +11,12 @@ export const SKILL_META_FILE = '.skill-meta.json'
 // Project structure
 export const AGENTS_DIR = '.agents'
 export const CANONICAL_SKILLS_DIR = 'skills'
-export const AUDIT_LOG_FILE = 'audit.log'
 export const LOCK_FILE = '.skill-lock.json'
 export const LOCK_FILE_BACKUP = '.skill-lock.json.backup'
+
+// Global configuration
+export const GLOBAL_CONFIG_DIR = '.agent-skills'
+export const AUDIT_LOG_FILE = 'audit.log'
 
 // Cache directory structure
 export const CACHE_BASE_DIR = '.cache'
