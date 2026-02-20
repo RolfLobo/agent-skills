@@ -1,3 +1,15 @@
+## 1.0.2 (2026-02-20)
+
+### 💅 Refactors
+
+- adjust update check timeout constant for clarity ([d61b67faf](https://github.com/tech-leads-club/agent-skills/commit/d61b67faf))
+- update CDN reference handling and URL construction logic ([d5e51573d](https://github.com/tech-leads-club/agent-skills/commit/d5e51573d))
+- improve update check logic and timeout handling ([dfb2e8fe2](https://github.com/tech-leads-club/agent-skills/commit/dfb2e8fe2))
+
+### ❤️ Thank You
+
+- Felipe Rodrigues @felipfr
+
 ## 1.0.1 (2026-02-20)
 
 This was a version bump only for @tech-leads-club/agent-skills to align it with other projects, there were no code changes.
