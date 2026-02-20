@@ -5,6 +5,7 @@ import { join } from 'node:path'
 export const IGNORED_FILES = ['.DS_Store', '.gitkeep', 'Thumbs.db', '.gitignore']
 export const CATEGORY_FOLDER_PATTERN = /^\(([a-z][a-z0-9-]*)\)$/
 export const CATEGORY_METADATA_FILE = '_category.json'
+export const SKILL_NAME_SLUG_PATTERN = /^[a-z][a-z0-9-]*$/
 
 export interface SkillMetadata {
   name: string
@@ -88,4 +89,12 @@ export function computeSkillHash(skillDir: string, files: string[]): string {
   }
 
   return hash.digest('hex')
+}
+
+export function toSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-') // replace any non-alphanumeric sequence with a hyphen
+    .replace(/^-+|-+$/g, '') // strip leading/trailing hyphens
 }
