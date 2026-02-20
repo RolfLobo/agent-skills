@@ -13,7 +13,7 @@
         "referenceFiles": [
           "WCAG.md"
         ],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-05"
       }
     },
     {
@@ -31,7 +31,7 @@
           "decision-trees.md",
           "mcp-guide.md"
         ],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-05"
       }
     },
     {
@@ -45,7 +45,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-05"
       }
     },
     {
@@ -59,7 +59,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-19"
       }
     },
     {
@@ -381,7 +381,7 @@
           "gotchas.md",
           "patterns.md"
         ],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-05"
       }
     },
     {
@@ -395,7 +395,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-18"
       }
     },
     {
@@ -409,7 +409,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-07"
       }
     },
     {
@@ -423,7 +423,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-07"
       }
     },
     {
@@ -437,7 +437,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-07"
       }
     },
     {
@@ -451,7 +451,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-05"
       }
     },
     {
@@ -467,12 +467,12 @@
         "referenceFiles": [
           "LCP.md"
         ],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-05"
       }
     },
     {
-      "id": "Coupling Analysis",
-      "name": "Coupling Analysis",
+      "id": "coupling-analysis",
+      "name": "coupling-analysis",
       "description": "Analyzes coupling in a codebase following the three-dimensional model from \"Balancing Coupling in Software Design\" (Vlad Khononov). Use when evaluating architectural quality, identifying problematic dependencies, understanding integration strength between modules, or getting recommendations to improve modularity.",
       "category": "architecture",
       "path": "skills/(architecture)/coupling-analysis/SKILL.md",
@@ -495,7 +495,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-18"
       }
     },
     {
@@ -509,7 +509,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-18"
       }
     },
     {
@@ -523,7 +523,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-07"
       }
     },
     {
@@ -539,7 +539,7 @@
         "referenceFiles": [
           "style-guide.md"
         ],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-05"
       }
     },
     {
@@ -553,7 +553,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-07"
       }
     },
     {
@@ -567,7 +567,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-07"
       }
     },
     {
@@ -584,7 +584,7 @@
           "element-types.md",
           "excalidraw-schema.md"
         ],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-19"
       }
     },
     {
@@ -601,7 +601,7 @@
           "figma-mcp-config.md",
           "figma-tools-and-prompts.md"
         ],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-05"
       }
     },
     {
@@ -615,7 +615,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-05"
       }
     },
     {
@@ -629,7 +629,7 @@
         "hasScripts": true,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-19"
       }
     },
     {
@@ -643,7 +643,7 @@
         "hasScripts": true,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-05"
       }
     },
     {
@@ -657,7 +657,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-19"
       }
     },
     {
@@ -675,7 +675,7 @@
           "deployment-patterns.md",
           "netlify-toml.md"
         ],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-05"
       }
     },
     {
@@ -689,7 +689,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-05"
       }
     },
     {
@@ -703,7 +703,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-05"
       }
     },
     {
@@ -717,7 +717,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-05"
       }
     },
     {
@@ -731,7 +731,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-18"
       }
     },
     {
@@ -745,7 +745,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-18"
       }
     },
     {
@@ -759,7 +759,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-18"
       }
     },
     {
@@ -777,7 +777,7 @@
           "core-web-vitals.md",
           "image-optimization.md"
         ],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-18"
       }
     },
     {
@@ -791,7 +791,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-19"
       }
     },
     {
@@ -805,7 +805,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-19"
       }
     },
     {
@@ -819,7 +819,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-19"
       }
     },
     {
@@ -833,7 +833,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-19"
       }
     },
     {
@@ -858,7 +858,7 @@
           "service-types.md",
           "troubleshooting-basics.md"
         ],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-19"
       }
     },
     {
@@ -872,7 +872,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-05"
       }
     },
     {
@@ -897,7 +897,7 @@
           "python-fastapi-web-server-security.md",
           "python-flask-web-server-security.md"
         ],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-05"
       }
     },
     {
@@ -913,7 +913,7 @@
         "referenceFiles": [
           "neo4j-import.md"
         ],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-05"
       }
     },
     {
@@ -930,7 +930,7 @@
           "prompt-template.md",
           "security-controls-and-assets.md"
         ],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-05"
       }
     },
     {
@@ -944,7 +944,7 @@
         "hasScripts": true,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-05"
       }
     },
     {
@@ -958,7 +958,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-05"
       }
     },
     {
@@ -984,7 +984,7 @@
           "performance.md",
           "theme-development.md"
         ],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-19"
       }
     },
     {
@@ -998,7 +998,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-18"
       }
     },
     {
@@ -1012,7 +1012,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-18"
       }
     },
     {
@@ -1026,7 +1026,7 @@
         "hasScripts": false,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-19"
       }
     },
     {
@@ -1054,7 +1054,7 @@
           "tasks.md",
           "validate.md"
         ],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-19"
       }
     },
     {
@@ -1068,7 +1068,7 @@
         "hasScripts": true,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-05"
       }
     },
     {
@@ -1084,7 +1084,7 @@
         "referenceFiles": [
           "guideline.md"
         ],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-19"
       }
     },
     {
@@ -1098,7 +1098,7 @@
         "hasScripts": true,
         "hasReferences": false,
         "referenceFiles": [],
-        "lastModified": "2026-02-20"
+        "lastModified": "2026-02-05"
       }
     }
   ],
