@@ -497,6 +497,16 @@
       "contentHash": "2c95db336a888573d034d5db4e94a6d80267a0f1e466875d9e8076967498f4fa"
     },
     {
+      "name": "Coupling Analysis",
+      "description": "Analyzes coupling in a codebase following the three-dimensional model from \"Balancing Coupling in Software Design\" (Vlad Khononov). Use when evaluating architectural quality, identifying problematic dependencies, understanding integration strength between modules, or getting recommendations to improve modularity.",
+      "category": "architecture",
+      "path": "(architecture)/coupling-analysis",
+      "files": [
+        "SKILL.md"
+      ],
+      "contentHash": "79d394df16347af4a6b50d85c86ba66caea465b846aaa5768c072245ebe7ea62"
+    },
+    {
       "name": "cursor-skill-creator",
       "description": "Creates Cursor-specific AI agent skills with SKILL.md format. Use when creating skills for Cursor editor specifically, following Cursor's patterns and directories (.cursor/skills/). Triggers on \"cursor skill\", \"create cursor skill\".",
       "category": "creation",
