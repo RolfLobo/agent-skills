@@ -26,6 +26,7 @@ export const REGISTRY_CACHE_FILENAME = 'registry.json'
 
 // Cache settings
 export const UPDATE_CHECK_CACHE_TTL_MS = 24 * 60 * 60 * 1000 // 24 hours
+export const UPDATE_CHECK_TIMEOUT_MS = 3_000 // 3 seconds
 
 // Registry/CDN settings
 export const REGISTRY_CACHE_TTL_MS = 24 * 60 * 60 * 1000 // 24 hours
