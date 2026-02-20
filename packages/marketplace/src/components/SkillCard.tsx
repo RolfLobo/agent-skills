@@ -8,7 +8,7 @@ interface SkillCardProps {
 }
 
 export function SkillCard({ skill, categoryName }: SkillCardProps) {
-  const installCommand = `npx @tech-leads-club/agent-skills --skill ${skill.id}`
+  const installCommand = `npx @tech-leads-club/agent-skills install --skill ${skill.id}`
 
   return (
     <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-200 dark:border-gray-800 p-6">
@@ -19,7 +19,9 @@ export function SkillCard({ skill, categoryName }: SkillCardProps) {
         >
           {skill.name}
         </Link>
-        <span className="px-3 py-1 text-xs font-medium bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300 rounded-full">{categoryName}</span>
+        <span className="px-3 py-1 text-xs font-medium bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300 rounded-full">
+          {categoryName}
+        </span>
       </div>
 
       <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">{skill.description}</p>
