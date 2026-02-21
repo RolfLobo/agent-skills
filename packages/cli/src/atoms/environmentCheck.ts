@@ -2,7 +2,7 @@ import { atom } from 'jotai'
 import { unwrap } from 'jotai/utils'
 
 import { isGloballyInstalled } from '../services/global-path'
-import { getCachedUpdate, isCacheValid, setCachedUpdate } from '../services/update-cache'
+import { getCachedUpdate, setCachedUpdate } from '../services/update-cache'
 import { checkForUpdates, getCurrentVersion } from '../services/update-check'
 import { UPDATE_CHECK_TIMEOUT_MS } from '../utils/constants'
 
@@ -14,22 +14,32 @@ export interface EnvironmentCheckState {
 
 async function resolveUpdateAvailable(currentVersion: string): Promise<string | null> {
   const cached = await getCachedUpdate()
-  if (cached && (await isCacheValid())) return cached.latestVersion !== currentVersion ? cached.latestVersion : null
-  const update = await checkForUpdates(currentVersion)
-  setCachedUpdate(update ?? currentVersion).catch(() => {})
-  return update
+  const cachedUpdate = cached && cached.latestVersion !== currentVersion ? cached.latestVersion : null
+
+  try {
+    const update = await Promise.race([
+      checkForUpdates(currentVersion),
+      new Promise<string | null>((_, reject) =>
+        setTimeout(() => reject(new Error('timeout')), UPDATE_CHECK_TIMEOUT_MS),
+      ),
+    ])
+
+    setCachedUpdate(update ?? currentVersion).catch(() => {})
+    return update
+  } catch {
+    return cachedUpdate
+  }
 }
 
 const runCheck = async (): Promise<EnvironmentCheckState> => {
   const currentVersion = getCurrentVersion()
-  const timeout = new Promise<null>((r) => setTimeout(() => r(null), UPDATE_CHECK_TIMEOUT_MS))
 
   const [updateAvailable, isGlobal] = await Promise.all([
-    Promise.race([resolveUpdateAvailable(currentVersion).catch(() => null), timeout]),
+    resolveUpdateAvailable(currentVersion).catch(() => null),
     Promise.resolve(isGloballyInstalled()).catch(() => false),
   ])
 
-  return { updateAvailable: updateAvailable ?? null, currentVersion, isGlobal: isGlobal as boolean }
+  return { updateAvailable, currentVersion, isGlobal: isGlobal as boolean }
 }
 
 const environmentCheckAsyncAtom = atom<Promise<EnvironmentCheckState>>(runCheck())
