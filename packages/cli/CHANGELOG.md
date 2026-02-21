@@ -1,3 +1,17 @@
+## 1.2.1 (2026-02-21)
+
+### 🩹 Fixes
+
+- correct globalSkillsDir path for antigravity agent ([f6101de7a](https://github.com/tech-leads-club/agent-skills/commit/f6101de7a))
+
+### 💅 Refactors
+
+- simplify update resolution logic in environment check ([d1ecec3cb](https://github.com/tech-leads-club/agent-skills/commit/d1ecec3cb))
+
+### ❤️ Thank You
+
+- Felipe Rodrigues @felipfr
+
 ## 1.2.0 (2026-02-21)
 
 This was a version bump only for @tech-leads-club/agent-skills to align it with other projects, there were no code changes.
