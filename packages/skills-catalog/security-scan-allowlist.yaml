@@ -82,6 +82,14 @@ entries:
     allowedBy: felipefr
     allowedAt: '2026-02-17'
 
+  - skill: perf-lighthouse
+    code: W012
+    reason: >
+      The skill provides a standard GitHub Actions workflow example using the official 
+      treosh/lighthouse-ci-action. The workflow example relies on trusted external code.
+    allowedBy: felipefr
+    allowedAt: '2026-02-22'
+
   # ============================================================================
   # TOOLING CATEGORY
   # Skills for browser automation, DevTools, and development tooling
@@ -116,6 +124,14 @@ entries:
       Security warnings have been added to instruct the LLM about handling untrusted content.
     allowedBy: felipefr
     allowedAt: '2026-02-17'
+
+  - skill: playwright-skill
+    code: W012
+    reason: >
+      Installing Playwright and browser binaries from the official npm registry at runtime 
+      (via npm install or npx) is required for the browser automation skill to function locally.
+    allowedBy: felipefr
+    allowedAt: '2026-02-22'
 
   # ============================================================================
   # DEVELOPMENT CATEGORY
@@ -163,6 +179,32 @@ entries:
       The skill needs to read repository content to generate deployment configurations.
     allowedBy: felipefr
     allowedAt: '2026-02-17'
+
+  - skill: cloudflare-deploy
+    code: W011
+    reason: >
+      Deploying Email Workers that process incoming emails is a core product feature of Cloudflare.
+      The skill documents how to use this feature. Processing external emails is inherent to the service.
+    allowedBy: felipefr
+    allowedAt: '2026-02-22'
+
+  - skill: cloudflare-deploy
+    code: W013
+    reason: >
+      The skill requests escalated sandbox permissions to make network calls to Cloudflare's
+      deployment API. This is a controlled permission request that allows network access when
+      the default sandbox blocks outbound requests. It is necessary for deployment operations
+      and requires explicit user approval.
+    allowedBy: felipefr
+    allowedAt: '2026-02-22'
+
+  - skill: netlify-deploy
+    code: W012
+    reason: >
+      Running the official Netlify CLI via `npx netlify` is the standard, documented way to 
+      deploy to Netlify. The npm registry is a trusted package source.
+    allowedBy: felipefr
+    allowedAt: '2026-02-22'
 
   - skill: render-deploy
     code: W012
