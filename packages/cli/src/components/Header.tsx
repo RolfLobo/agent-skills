@@ -4,12 +4,11 @@ import Gradient from 'ink-gradient'
 import { useAtomValue } from 'jotai'
 import { useMemo } from 'react'
 
-import { PACKAGE_VERSION } from '../services/package-info'
-
 import { environmentCheckAtom } from '../atoms/environmentCheck'
+import { PACKAGE_VERSION } from '../services/package-info'
 import { symbols } from '../theme/symbols'
+import { MESSAGES } from '../utils/constants'
 
-const DESCRIPTION = 'Curated skills to power up your coding agents'
 const crystalColors = ['#1e3a8a', '#3b82f6', '#0ea5e9', '#06b6d4', '#22d3ee']
 const SEPARATOR_CHAR = '─'
 
@@ -19,13 +18,28 @@ export const Header = ({ notification: overrideNotification }: { notification?: 
   const notification = useMemo(() => {
     if (overrideNotification) return overrideNotification
 
-    const { updateAvailable, currentVersion, isGlobal } = envCheck
+    const { updateAvailable, currentVersion, isGlobal, isLoading } = envCheck
+
+    if (isLoading) return null
+
+    if (updateAvailable && !isGlobal) {
+      return (
+        <Box flexDirection="column" alignItems="center">
+          <Text color="yellow">
+            {symbols.warning} {MESSAGES.UPDATE_AVAILABLE(currentVersion, updateAvailable)}
+          </Text>
+          <Text color="blue">
+            {symbols.info} {MESSAGES.TIP_INSTALL_UPDATE} <Text bold>{MESSAGES.INSTALL_COMMAND}</Text>
+          </Text>
+        </Box>
+      )
+    }
 
     if (updateAvailable) {
       return (
         <Text color="yellow">
-          {symbols.warning} Update available: {currentVersion} → {updateAvailable} (run{' '}
-          <Text bold>npm update -g @tech-leads-club/agent-skills</Text>)
+          {symbols.warning} {MESSAGES.UPDATE_AVAILABLE(currentVersion, updateAvailable)} (run{' '}
+          <Text bold>{MESSAGES.UPDATE_COMMAND}</Text>)
         </Text>
       )
     }
@@ -33,8 +47,7 @@ export const Header = ({ notification: overrideNotification }: { notification?: 
     if (!isGlobal) {
       return (
         <Text color="blue">
-          {symbols.info} Tip: Install globally for easier access:{' '}
-          <Text bold>npm install -g @tech-leads-club/agent-skills</Text>
+          {symbols.info} {MESSAGES.TIP_INSTALL_ACCESS} <Text bold>{MESSAGES.INSTALL_COMMAND}</Text>
         </Text>
       )
     }
@@ -67,7 +80,7 @@ export const Header = ({ notification: overrideNotification }: { notification?: 
 
         <Box marginTop={1}>
           <Text color="#64748b" italic>
-            {DESCRIPTION}
+            {MESSAGES.DESCRIPTION}
           </Text>
         </Box>
 
