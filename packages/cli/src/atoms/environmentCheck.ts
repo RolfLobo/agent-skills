@@ -10,6 +10,7 @@ export interface EnvironmentCheckState {
   updateAvailable: string | null
   currentVersion: string
   isGlobal: boolean
+  isLoading?: boolean
 }
 
 async function resolveUpdateAvailable(currentVersion: string): Promise<string | null> {
@@ -39,12 +40,12 @@ const runCheck = async (): Promise<EnvironmentCheckState> => {
     Promise.resolve(isGloballyInstalled()).catch(() => false),
   ])
 
-  return { updateAvailable, currentVersion, isGlobal: isGlobal as boolean }
+  return { updateAvailable, currentVersion, isGlobal: isGlobal as boolean, isLoading: false }
 }
 
 const environmentCheckAsyncAtom = atom<Promise<EnvironmentCheckState>>(runCheck())
 
 export const environmentCheckAtom = unwrap(
   environmentCheckAsyncAtom,
-  (prev) => prev ?? { updateAvailable: null, currentVersion: getCurrentVersion(), isGlobal: false },
+  (prev) => prev ?? { updateAvailable: null, currentVersion: getCurrentVersion(), isGlobal: false, isLoading: true },
 )
