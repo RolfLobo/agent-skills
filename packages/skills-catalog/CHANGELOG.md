@@ -1,3 +1,33 @@
+## 0.8.0 (2026-02-25)
+
+### 🚀 Features
+
+- add new skills and deprecate outdated ones in skills registry ([ecb76350e](https://github.com/tech-leads-club/agent-skills/commit/ecb76350e))
+- add author metadata to aws-advisor skill documentation ([f20b6e92d](https://github.com/tech-leads-club/agent-skills/commit/f20b6e92d))
+- add reasons for security scan allowlist entries and new skills ([0a4382183](https://github.com/tech-leads-club/agent-skills/commit/0a4382183))
+- add nestjs-modular-monolith skill ([9b06c6f04](https://github.com/tech-leads-club/agent-skills/commit/9b06c6f04))
+- add codenavi skill ([aaff8f85d](https://github.com/tech-leads-club/agent-skills/commit/aaff8f85d))
+- add the-fool skill ([140df6100](https://github.com/tech-leads-club/agent-skills/commit/140df6100))
+- add skill-architect ([c72759890](https://github.com/tech-leads-club/agent-skills/commit/c72759890))
+- add react-native-expert skill ([cf5cee5a6](https://github.com/tech-leads-club/agent-skills/commit/cf5cee5a6))
+- add learning-opportunities skill and principles for effective learning ([512f6ae19](https://github.com/tech-leads-club/agent-skills/commit/512f6ae19))
+- add legacy-migration-planner skill ([c2d4f9b7c](https://github.com/tech-leads-club/agent-skills/commit/c2d4f9b7c))
+- add frontend-blueprint skill ([ac6989c38](https://github.com/tech-leads-club/agent-skills/commit/ac6989c38))
+- add new skills for decision-making and learning & growth categories ([3ed34244d](https://github.com/tech-leads-club/agent-skills/commit/3ed34244d))
+- add deprecated skills with messages and alternatives ([ebb2a2781](https://github.com/tech-leads-club/agent-skills/commit/ebb2a2781))
+- remove allowed-tools from run-nx-generator skill documentation ([9e06b350d](https://github.com/tech-leads-club/agent-skills/commit/9e06b350d))
+- add support for loading deprecated skills from YAML file ([884a1db51](https://github.com/tech-leads-club/agent-skills/commit/884a1db51))
+- add support for deprecated skills in skills registry ([446f0dbab](https://github.com/tech-leads-club/agent-skills/commit/446f0dbab))
+
+### 📖 Documentation
+
+- update description formatting for codenavi skill ([9a36836e1](https://github.com/tech-leads-club/agent-skills/commit/9a36836e1))
+- update license information in skill documentation ([cdc4a202e](https://github.com/tech-leads-club/agent-skills/commit/cdc4a202e))
+
+### ❤️ Thank You
+
+- Felipe Rodrigues @felipfr
+
 ## 0.7.0 (2026-02-22)
 
 ### 🚀 Features
