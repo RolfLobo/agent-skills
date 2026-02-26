@@ -1,3 +1,22 @@
+## 0.9.0 (2026-02-26)
+
+### 🚀 Features
+
+- add new skills to security scan allowlist for nx-ci-monitor and netlify-deploy ([7256e1bc2](https://github.com/tech-leads-club/agent-skills/commit/7256e1bc2))
+- enhance skill validation script with JSON output and improved frontmatter parsing ([18cd31e6a](https://github.com/tech-leads-club/agent-skills/commit/18cd31e6a))
+- enhance skill validation script ([f2555b265](https://github.com/tech-leads-club/agent-skills/commit/f2555b265))
+- expand security-scan-allowlist.yaml to include new skills ([138724517](https://github.com/tech-leads-club/agent-skills/commit/138724517))
+
+### 📖 Documentation
+
+- update SKILL.md to clarify usage restrictions for learning opportunities ([4dd81e2d7](https://github.com/tech-leads-club/agent-skills/commit/4dd81e2d7))
+- update SKILL.md to clarify usage of perf-lighthouse for audits ([e899fd33f](https://github.com/tech-leads-club/agent-skills/commit/e899fd33f))
+- enhance skill descriptions to clarify usage and limitations ([8dca4593d](https://github.com/tech-leads-club/agent-skills/commit/8dca4593d))
+
+### ❤️ Thank You
+
+- Felipe Rodrigues @felipfr
+
 ## 0.8.0 (2026-02-25)
 
 ### 🚀 Features
