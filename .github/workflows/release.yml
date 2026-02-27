@@ -234,43 +234,73 @@ jobs:
         run: |
           CLI_TAG=$(git tag --sort=-creatordate --list 'v[0-9]*' | head -1)
           CATALOG_TAG=$(git tag --sort=-creatordate --list 'skills-catalog-v[0-9]*' | head -1)
+          MCP_TAG=$(git tag --sort=-creatordate --list 'mcp-v[0-9]*' | head -1)
 
           echo "Latest CLI tag: $CLI_TAG"
           echo "Latest Catalog tag: $CATALOG_TAG"
+          echo "Latest MCP tag: $MCP_TAG"
 
-          HAS_CHANGES=false
+          GROUPS_TO_RELEASE=""
 
+          # Check CLI changes (packages/cli/ + libs/core/)
           if [ -n "$CLI_TAG" ]; then
             CLI_CHANGES=$(git diff --name-only "$CLI_TAG"..HEAD -- packages/cli/ libs/core/ | head -1)
             if [ -n "$CLI_CHANGES" ]; then
               echo "✅ CLI has source changes since $CLI_TAG"
-              HAS_CHANGES=true
+              GROUPS_TO_RELEASE="cli"
             else
               echo "⏭️ CLI has no source changes since $CLI_TAG"
             fi
           else
             echo "⚠️ No CLI release tag found, treating as first release"
-            HAS_CHANGES=true
+            GROUPS_TO_RELEASE="cli"
           fi
 
+          # Check skills-catalog changes
           if [ -n "$CATALOG_TAG" ]; then
             CATALOG_CHANGES=$(git diff --name-only "$CATALOG_TAG"..HEAD -- packages/skills-catalog/ | head -1)
             if [ -n "$CATALOG_CHANGES" ]; then
               echo "✅ skills-catalog has source changes since $CATALOG_TAG"
-              HAS_CHANGES=true
+              GROUPS_TO_RELEASE="${GROUPS_TO_RELEASE:+$GROUPS_TO_RELEASE,}skills-catalog"
             else
               echo "⏭️ skills-catalog has no source changes since $CATALOG_TAG"
             fi
           else
             echo "⚠️ No skills-catalog release tag found, treating as first release"
-            HAS_CHANGES=true
+            GROUPS_TO_RELEASE="${GROUPS_TO_RELEASE:+$GROUPS_TO_RELEASE,}skills-catalog"
           fi
 
-          echo "has_changes=$HAS_CHANGES" >> "$GITHUB_OUTPUT"
+          # Check MCP changes (packages/mcp/ + libs/core/)
+          if [ -n "$MCP_TAG" ]; then
+            MCP_CHANGES=$(git diff --name-only "$MCP_TAG"..HEAD -- packages/mcp/ libs/core/ | head -1)
+            if [ -n "$MCP_CHANGES" ]; then
+              echo "✅ MCP has source changes since $MCP_TAG"
+              GROUPS_TO_RELEASE="${GROUPS_TO_RELEASE:+$GROUPS_TO_RELEASE,}mcp"
+            else
+              echo "⏭️ MCP has no source changes since $MCP_TAG"
+            fi
+          else
+            echo "⚠️ No MCP release tag found, treating as first release"
+            GROUPS_TO_RELEASE="${GROUPS_TO_RELEASE:+$GROUPS_TO_RELEASE,}mcp"
+          fi
+
+          echo "groups_to_release=$GROUPS_TO_RELEASE" >> "$GITHUB_OUTPUT"
+
+          if [ -n "$GROUPS_TO_RELEASE" ]; then
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            echo ""
+            echo "📦 Groups to release: $GROUPS_TO_RELEASE"
+          else
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo ""
+            echo "⏭️ No groups have releasable changes"
+          fi
 
       - name: Release Version and Publish
         if: steps.check-changes.outputs.has_changes == 'true'
-        run: npx nx release --yes || NX_NO_CLOUD=true npx nx release --yes
+        run: |
+          npx nx release --yes --groups=${{ steps.check-changes.outputs.groups_to_release }} || \
+          NX_NO_CLOUD=true npx nx release --yes --groups=${{ steps.check-changes.outputs.groups_to_release }}
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           NODE_AUTH_TOKEN: ''
