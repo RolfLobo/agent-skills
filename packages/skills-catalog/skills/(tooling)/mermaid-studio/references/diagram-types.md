@@ -729,9 +729,12 @@ Any diagram can be configured with frontmatter:
 ```mermaid
 ---
 config:
-  theme: dark
-  look: handDrawn
-  layout: elk
+  theme: base
+  look: classic
+  layout: dagre
+  themeVariables:
+    primaryColor: "#4f46e5"
+    lineColor: "#94a3b8"
 ---
 flowchart LR
     A --> B --> C
@@ -743,8 +746,13 @@ flowchart LR
 
 ## Directives (Inline Config)
 
+**IMPORTANT:** The init directive MUST be on the very first line, before any diagram type declaration.
+
 ```
-%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#ff6b6b'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {
+  'primaryColor': '#4f46e5', 'lineColor': '#94a3b8',
+  'primaryTextColor': '#fff', 'primaryBorderColor': '#3730a3'
+}}}%%
 ```
 
-Place at the very first line of the diagram, before the type declaration.
+**Golden Rule:** Always include `'lineColor': '#94a3b8'` to replace the default harsh black lines with softer slate-colored lines. This single change dramatically improves diagram aesthetics.
