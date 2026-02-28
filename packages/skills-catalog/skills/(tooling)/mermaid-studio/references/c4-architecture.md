@@ -2,6 +2,50 @@
 
 Load this file when the user requests C4 diagrams or system architecture documentation. The C4 model provides four levels of abstraction.
 
+## CRITICAL: Mandatory Rules
+
+**Every C4 diagram MUST follow these rules.** Without them, Mermaid renders harsh black lines that overlap elements and make the diagram unreadable.
+
+1. **Max 6 `Rel()` per diagram.** More relationships cause Dagre to route arrows through nodes, creating unreadable spaghetti. Split complex systems into multiple focused diagrams.
+2. **Always style all relationships.** Apply `UpdateRelStyle` to every `Rel()` with soft line colors (see template below).
+3. **Max 6-8 elements per diagram.** Tree-shaped topology (1 in, 1-2 out per node) renders best. Avoid mesh connections.
+4. **Do NOT set `fontFamily`.** Mermaid's default font works everywhere. Setting `system-ui` or `Segoe UI` will render as Times New Roman in headless Chromium.
+
+### Template: Add This to Every C4 Diagram
+
+```
+    %% === MANDATORY: Apply to ALL Rel() references ===
+    UpdateRelStyle(fromAlias, toAlias, $textColor="#475569", $lineColor="#94a3b8")
+    %% Repeat for each relationship in the diagram
+
+    %% === MANDATORY: Layout optimization ===
+    UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
+```
+
+### When Labels Overlap Elements
+
+Add `$offsetX` and `$offsetY` to push labels away from elements:
+
+```
+    UpdateRelStyle(from, to, $textColor="#475569", $lineColor="#94a3b8", $offsetY="-10")
+    UpdateRelStyle(from, to, $textColor="#475569", $lineColor="#94a3b8", $offsetX="-40", $offsetY="20")
+```
+
+### Highlighting Important Relationships
+
+Use accent colors for critical paths while keeping other lines soft:
+
+```
+    %% Primary relationship — emphasized
+    UpdateRelStyle(client, api, $textColor="#1e40af", $lineColor="#3b82f6")
+
+    %% Secondary relationships — soft
+    UpdateRelStyle(api, db, $textColor="#475569", $lineColor="#94a3b8")
+
+    %% External/risky connection — warning
+    UpdateRelStyle(api, extPayment, $textColor="#92400e", $lineColor="#f59e0b")
+```
+
 ## C4 Levels — When to Use Each
 
 | Level | Diagram      | Audience       | Purpose                               |
@@ -78,6 +122,8 @@ Rel_R(from, to, "Label")       %% Rightward
 Rel_Back(from, to, "Label")    %% Back relationship
 ```
 
+**Layout control tip:** When auto-layout causes lines to overlap, use directional variants (`Rel_D`, `Rel_R`, etc.) to force arrows in a specific direction. This is the most effective way to avoid overlapping lines.
+
 ### Deployment Nodes
 
 ```
@@ -88,7 +134,7 @@ Node_L(alias, "Label") { ... }
 Node_R(alias, "Label") { ... }
 ```
 
-## Complete Examples
+## Complete Examples (All With Mandatory Styling)
 
 ### Level 1 — System Context
 
@@ -114,46 +160,49 @@ C4Context
     Rel(orderPlatform, shipping, "Creates shipments", "REST API")
     Rel(orderPlatform, emailSvc, "Sends notifications", "SMTP/API")
     Rel(orderPlatform, analytics, "Sends events", "HTTPS")
+
+    UpdateRelStyle(customer, orderPlatform, $textColor="#1e40af", $lineColor="#3b82f6")
+    UpdateRelStyle(admin, orderPlatform, $textColor="#1e40af", $lineColor="#3b82f6")
+    UpdateRelStyle(orderPlatform, paymentGW, $textColor="#475569", $lineColor="#94a3b8")
+    UpdateRelStyle(orderPlatform, shipping, $textColor="#475569", $lineColor="#94a3b8")
+    UpdateRelStyle(orderPlatform, emailSvc, $textColor="#475569", $lineColor="#94a3b8")
+    UpdateRelStyle(orderPlatform, analytics, $textColor="#475569", $lineColor="#94a3b8", $offsetY="-10")
+
+    UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
 ```
 
 ### Level 2 — Container
+
+**Keep container diagrams focused: max 6-8 elements and 6 Rel().** For complex systems, split into multiple diagrams (one per bounded context or service area).
 
 ```mermaid
 C4Container
     title Container Diagram — Order Platform
 
-    Person(customer, "Customer")
-    Person(admin, "Admin")
+    Person(customer, "Customer", "Places orders online")
 
     System_Boundary(platform, "Order Platform") {
-        Container(spa, "Web App", "React, TypeScript", "Customer-facing storefront")
-        Container(adminApp, "Admin Panel", "React, TypeScript", "Back-office management")
-        Container(api, "API Gateway", "NestJS", "Routes and authenticates requests")
-        Container(orderSvc, "Order Service", "NestJS", "Order lifecycle management")
-        Container(catalogSvc, "Catalog Service", "NestJS", "Product management")
-        Container(notifSvc, "Notification Service", "Node.js", "Email and push notifications")
-        ContainerQueue(eventBus, "Event Bus", "RabbitMQ", "Async event routing")
-        ContainerDb(orderDb, "Order DB", "PostgreSQL", "Orders and transactions")
-        ContainerDb(catalogDb, "Catalog DB", "PostgreSQL", "Products and categories")
-        ContainerDb(cache, "Cache", "Redis", "Session and query cache")
+        Container(spa, "Web App", "React", "Customer-facing storefront")
+        Container(api, "API Gateway", "NestJS", "Routes requests")
+        Container(orderSvc, "Order Service", "NestJS", "Order lifecycle")
+        ContainerDb(db, "Database", "PostgreSQL", "Orders and products")
     }
 
     System_Ext(paymentGW, "Stripe", "Payment processing")
-    System_Ext(emailSvc, "SendGrid", "Email delivery")
 
     Rel(customer, spa, "Uses", "HTTPS")
-    Rel(admin, adminApp, "Uses", "HTTPS")
     Rel(spa, api, "Calls", "JSON/HTTPS")
-    Rel(adminApp, api, "Calls", "JSON/HTTPS")
     Rel(api, orderSvc, "Routes to", "gRPC")
-    Rel(api, catalogSvc, "Routes to", "gRPC")
-    Rel(api, cache, "Reads/writes", "Redis protocol")
-    Rel(orderSvc, orderDb, "Reads/writes", "SQL")
-    Rel(orderSvc, eventBus, "Publishes events", "AMQP")
-    Rel(catalogSvc, catalogDb, "Reads/writes", "SQL")
-    Rel(eventBus, notifSvc, "Delivers events", "AMQP")
-    Rel(notifSvc, emailSvc, "Sends emails", "REST API")
+    Rel(orderSvc, db, "Reads/writes", "SQL")
     Rel(orderSvc, paymentGW, "Processes payment", "REST API")
+
+    UpdateRelStyle(customer, spa, $textColor="#1e40af", $lineColor="#3b82f6")
+    UpdateRelStyle(spa, api, $textColor="#475569", $lineColor="#94a3b8")
+    UpdateRelStyle(api, orderSvc, $textColor="#475569", $lineColor="#94a3b8")
+    UpdateRelStyle(orderSvc, db, $textColor="#475569", $lineColor="#94a3b8")
+    UpdateRelStyle(orderSvc, paymentGW, $textColor="#92400e", $lineColor="#f59e0b")
+
+    UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
 ```
 
 ### Level 3 — Component (Order Service)
@@ -183,6 +232,17 @@ C4Component
     Rel(orderRepo, orderDb, "SQL queries")
     Rel(eventPub, eventBus, "AMQP")
     Rel(paymentPort, paymentGW, "REST API")
+
+    UpdateRelStyle(orderCtrl, orderUseCase, $textColor="#475569", $lineColor="#94a3b8")
+    UpdateRelStyle(orderUseCase, orderModel, $textColor="#475569", $lineColor="#94a3b8")
+    UpdateRelStyle(orderUseCase, paymentPort, $textColor="#475569", $lineColor="#94a3b8")
+    UpdateRelStyle(orderUseCase, orderRepo, $textColor="#475569", $lineColor="#94a3b8")
+    UpdateRelStyle(orderUseCase, eventPub, $textColor="#475569", $lineColor="#94a3b8")
+    UpdateRelStyle(orderRepo, orderDb, $textColor="#475569", $lineColor="#94a3b8")
+    UpdateRelStyle(eventPub, eventBus, $textColor="#475569", $lineColor="#94a3b8")
+    UpdateRelStyle(paymentPort, paymentGW, $textColor="#92400e", $lineColor="#f59e0b")
+
+    UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
 ```
 
 ### C4 Dynamic — Request Flow
@@ -206,6 +266,16 @@ C4Dynamic
     Rel(orderSvc, bus, "6. Publish OrderConfirmed", "AMQP")
     Rel(orderSvc, api, "7. Return order", "gRPC")
     Rel(api, spa, "8. 201 Created", "JSON/HTTPS")
+
+    UpdateRelStyle(spa, api, $textColor="#1e40af", $lineColor="#3b82f6")
+    UpdateRelStyle(api, orderSvc, $textColor="#475569", $lineColor="#94a3b8")
+    UpdateRelStyle(orderSvc, db, $textColor="#475569", $lineColor="#94a3b8", $offsetX="-30")
+    UpdateRelStyle(orderSvc, paymentGW, $textColor="#92400e", $lineColor="#f59e0b")
+    UpdateRelStyle(orderSvc, bus, $textColor="#475569", $lineColor="#94a3b8")
+    UpdateRelStyle(orderSvc, api, $textColor="#475569", $lineColor="#94a3b8", $offsetY="-10")
+    UpdateRelStyle(api, spa, $textColor="#475569", $lineColor="#94a3b8", $offsetY="-10")
+
+    UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
 ```
 
 ### C4 Deployment
@@ -246,6 +316,14 @@ C4Deployment
     Rel(orderSvc, db, "Reads/writes", "SQL/TLS")
     Rel(api, cache, "Caches", "Redis/TLS")
     Rel(orderSvc, bus, "Publishes", "AMQP/TLS")
+
+    UpdateRelStyle(cdn, api, $textColor="#1e40af", $lineColor="#3b82f6")
+    UpdateRelStyle(api, orderSvc, $textColor="#475569", $lineColor="#94a3b8")
+    UpdateRelStyle(orderSvc, db, $textColor="#475569", $lineColor="#94a3b8")
+    UpdateRelStyle(api, cache, $textColor="#475569", $lineColor="#94a3b8")
+    UpdateRelStyle(orderSvc, bus, $textColor="#475569", $lineColor="#94a3b8")
+
+    UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
 ```
 
 ## Styling and Layout
@@ -267,8 +345,19 @@ UpdateElementStyle(alias, $fontColor="red", $bgColor="grey", $borderColor="red")
 Use `$offsetX` and `$offsetY` to fix overlapping labels:
 
 ```
-UpdateRelStyle(from, to, $textColor="blue", $lineColor="blue", $offsetY="-10")
+UpdateRelStyle(from, to, $textColor="#475569", $lineColor="#94a3b8", $offsetY="-10")
 ```
+
+### Professional Color Palette for Custom Element Styles
+
+| Purpose              | bgColor   | fontColor | borderColor | When to use                     |
+| -------------------- | --------- | --------- | ----------- | ------------------------------- |
+| Primary emphasis     | `#4f46e5` | `#ffffff` | `#3730a3`   | Core systems, main service      |
+| Success / Data store | `#059669` | `#ffffff` | `#047857`   | Databases, completed states     |
+| Warning / External   | `#d97706` | `#ffffff` | `#b45309`   | External systems, risky paths   |
+| Error / Critical     | `#dc2626` | `#ffffff` | `#b91c1c`   | Error states ONLY               |
+| Neutral / Secondary  | `#64748b` | `#ffffff` | `#475569`   | Supporting services, background |
+| Info / Highlight     | `#0284c7` | `#ffffff` | `#0369a1`   | Informational annotations       |
 
 ## Microservices Patterns
 
@@ -286,6 +375,14 @@ C4Container
         Container(inventorySvc, "Inventory Service", "NestJS", "Stock management")
         ContainerDb(inventoryDb, "Inventory DB", "MongoDB")
     }
+
+    Rel(orderSvc, orderDb, "Reads/writes", "SQL")
+    Rel(inventorySvc, inventoryDb, "Reads/writes", "MongoDB Wire")
+
+    UpdateRelStyle(orderSvc, orderDb, $textColor="#475569", $lineColor="#94a3b8")
+    UpdateRelStyle(inventorySvc, inventoryDb, $textColor="#475569", $lineColor="#94a3b8")
+
+    UpdateLayoutConfig($c4ShapeInRow="2", $c4BoundaryInRow="1")
 ```
 
 ### Multi-Team Ownership
@@ -304,6 +401,12 @@ C4Context
     Rel(customer, orderSys, "Places orders")
     Rel(orderSys, inventorySys, "Checks stock")
     Rel(orderSys, paymentSys, "Processes payment")
+
+    UpdateRelStyle(customer, orderSys, $textColor="#1e40af", $lineColor="#3b82f6")
+    UpdateRelStyle(orderSys, inventorySys, $textColor="#475569", $lineColor="#94a3b8")
+    UpdateRelStyle(orderSys, paymentSys, $textColor="#92400e", $lineColor="#f59e0b")
+
+    UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
 ```
 
 ### Event-Driven Architecture
@@ -323,6 +426,13 @@ C4Container
     Rel(stockSvc, orderTopic, "Subscribes to")
     Rel(stockSvc, stockTopic, "Publishes to")
     Rel(orderSvc, stockTopic, "Subscribes to")
+
+    UpdateRelStyle(orderSvc, orderTopic, $textColor="#475569", $lineColor="#94a3b8")
+    UpdateRelStyle(stockSvc, orderTopic, $textColor="#475569", $lineColor="#94a3b8")
+    UpdateRelStyle(stockSvc, stockTopic, $textColor="#475569", $lineColor="#94a3b8")
+    UpdateRelStyle(orderSvc, stockTopic, $textColor="#475569", $lineColor="#94a3b8")
+
+    UpdateLayoutConfig($c4ShapeInRow="2", $c4BoundaryInRow="1")
 ```
 
 ## Essential Rules
@@ -331,20 +441,25 @@ C4Container
 2. **Use unidirectional arrows** — bidirectional creates ambiguity
 3. **Label arrows with action verbs** — "Sends email using", not just "uses"
 4. **Include technology labels** — "JSON/HTTPS", "SQL", "gRPC"
-5. **Under 20 elements per diagram** — split if more
+5. **Under 15 elements per diagram** — split if more (elegance > completeness)
 6. **Always include a title**
 7. **Meaningful aliases** — `orderService` not `s1`
+8. **ALWAYS add UpdateRelStyle** — soft line colors are mandatory
+9. **ALWAYS add UpdateLayoutConfig** — prevents element crowding
 
 ## Common Mistakes
 
-| Mistake                  | Why it's wrong                  | Fix                    |
-| ------------------------ | ------------------------------- | ---------------------- |
-| Shared lib as Container  | Containers are deployable units | Model as Component     |
-| Single "Kafka" container | Hides topic structure           | Show individual topics |
-| "Subcomponents" level    | Not a C4 concept                | Use Component or Class |
-| Removing type labels     | Loses information               | Always show type/tech  |
-| Bidirectional arrows     | Ambiguous flow direction        | Use unidirectional     |
-| No technology labels     | Can't assess architecture       | Add protocol/tech      |
+| Mistake                  | Why it's wrong                  | Fix                                  |
+| ------------------------ | ------------------------------- | ------------------------------------ |
+| Shared lib as Container  | Containers are deployable units | Model as Component                   |
+| Single "Kafka" container | Hides topic structure           | Show individual topics               |
+| "Subcomponents" level    | Not a C4 concept                | Use Component or Class               |
+| Removing type labels     | Loses information               | Always show type/tech                |
+| Bidirectional arrows     | Ambiguous flow direction        | Use unidirectional                   |
+| No technology labels     | Can't assess architecture       | Add protocol/tech                    |
+| No UpdateRelStyle        | Harsh black lines               | Add soft colors to ALL relationships |
+| No UpdateLayoutConfig    | Elements crowd together         | Add layout config at end             |
+| No offset on overlap     | Labels hidden behind elements   | Add $offsetX/$offsetY to fix         |
 
 ## File Naming Convention
 
