@@ -1,3 +1,17 @@
+## 0.1.1 (2026-02-28)
+
+### 🩹 Fixes
+
+- make deprecated field optional in RegistrySchema and ensure it defaults to an empty array in getRegistry ([b8ad1cba5](https://github.com/tech-leads-club/agent-skills/commit/b8ad1cba5))
+
+### 💅 Refactors
+
+- update CDN URLs to use npm package for consistency across MCP and CLI ([308c1a444](https://github.com/tech-leads-club/agent-skills/commit/308c1a444))
+
+### ❤️ Thank You
+
+- Felipe Rodrigues @felipfr
+
 ## 0.1.0 (2026-02-26)
 
 ### 🚀 Features

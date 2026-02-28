@@ -1,3 +1,29 @@
+## 0.11.0 (2026-02-28)
+
+### 🚀 Features
+
+- update skills-registry ([2579819ed](https://github.com/tech-leads-club/agent-skills/commit/2579819ed))
+- enhance mermaid-studio renderer with icon pack support and improved Puppeteer integration ([bd82c4350](https://github.com/tech-leads-club/agent-skills/commit/bd82c4350))
+- add puppeteer installation for icon-enabled rendering in mermaid-studio setup ([7292cfc3e](https://github.com/tech-leads-club/agent-skills/commit/7292cfc3e))
+- add multiple new Excalidraw templates ([e71480f36](https://github.com/tech-leads-club/agent-skills/commit/e71480f36))
+
+### 📖 Documentation
+
+- update diagram-types.md with new default theme settings ([3e2cd864e](https://github.com/tech-leads-club/agent-skills/commit/3e2cd864e))
+- enhance themes.md with new AWS and Indigo-Emerald themes, update C4 diagram styling guidelines, and emphasize soft line usage ([e2bafec7e](https://github.com/tech-leads-club/agent-skills/commit/e2bafec7e))
+- expand troubleshooting.md with detailed fixes for common rendering issues in mermaid-studio ([5f11a7492](https://github.com/tech-leads-club/agent-skills/commit/5f11a7492))
+- enhance c4-architecture.md with mandatory rules for diagram creation, styling guidelines, and layout optimization tips ([7fb28e29e](https://github.com/tech-leads-club/agent-skills/commit/7fb28e29e))
+- enhance aws-architecture.md with critical limitations, golden rules for diagram complexity, and detailed icon options for improved clarity ([9354dae37](https://github.com/tech-leads-club/agent-skills/commit/9354dae37))
+- enhance SKILL.md with golden rules for elegant Mermaid diagrams and update version to 1.0.1 ([d2e06ac95](https://github.com/tech-leads-club/agent-skills/commit/d2e06ac95))
+- update SKILL.md to enhance diagram type selection with visual mode details ([c15c49d4b](https://github.com/tech-leads-club/agent-skills/commit/c15c49d4b))
+- update element-types.md to clarify text binding and arrow binding requirements for Excalidraw elements ([473015c66](https://github.com/tech-leads-club/agent-skills/commit/473015c66))
+- update excalidraw-schema.md to clarify required properties for elements ([a2fb50577](https://github.com/tech-leads-club/agent-skills/commit/a2fb50577))
+- update icon-libraries.md to use angle brackets for URLs ([6a34ad03c](https://github.com/tech-leads-club/agent-skills/commit/6a34ad03c))
+
+### ❤️ Thank You
+
+- Felipe Rodrigues @felipfr
+
 ## 0.10.0 (2026-02-27)
 
 ### 🚀 Features
