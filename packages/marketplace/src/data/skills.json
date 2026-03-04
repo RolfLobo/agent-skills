@@ -637,7 +637,7 @@
           "design-principles.md",
           "stitch-integration.md"
         ],
-        "lastModified": "2026-02-25"
+        "lastModified": "2026-03-04"
       }
     },
     {
@@ -758,7 +758,7 @@
           "state-isolation.md",
           "testing-patterns.md"
         ],
-        "lastModified": "2026-02-25"
+        "lastModified": "2026-03-04"
       }
     },
     {
@@ -940,7 +940,7 @@
           "project-structure.md",
           "storage-patterns.md"
         ],
-        "lastModified": "2026-02-25"
+        "lastModified": "2026-03-04"
       }
     },
     {
