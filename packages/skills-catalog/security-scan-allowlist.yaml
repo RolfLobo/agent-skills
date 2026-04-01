@@ -200,6 +200,16 @@ entries:
     allowedBy: felipefr
     allowedAt: "2026-02-27"
 
+  - skill: nestjs-modular-monolith
+    code: W011
+    reason: >
+      The skill instructs loading bundled reference files (references/*.md) and applying
+      official NestJS architectural patterns. On-demand documentation is core to the skill;
+      the scanner conflates this with untrusted third-party ingestion—same intent as
+      codenavi and tlc-spec-driven (framework guidance), scoped to repo-local references.
+    allowedBy: felipefr
+    allowedAt: "2026-04-01"
+
   - skill: codenavi
     code: W011
     reason: >
@@ -361,6 +371,16 @@ entries:
       third-party content (LinkedIn, company sites) for personalization. Intentional.
     allowedBy: felipefr
     allowedAt: "2026-03-13"
+
+  - skill: ai-cold-outreach
+    code: E006
+    reason: >
+      Snyk flags persuasive outreach and personalization-at-scale methodology as a
+      "malicious pattern" (abuse/phishing heuristics). This skill is human-reviewed GTM
+      documentation: B2B outreach, compliance (GDPR, CAN-SPAM), and tooling—not executable
+      payloads or data exfiltration instructions.
+    allowedBy: felipefr
+    allowedAt: "2026-04-01"
 
   - skill: ai-sdr
     code: W011
