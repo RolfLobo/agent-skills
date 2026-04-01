@@ -69,7 +69,7 @@
         "refactor": {
           "semverBump": "patch"
         },
-        "chore": false,
+        "chore": { "semverBump": "patch", "changelog": { "hidden": true } },
         "test": false,
         "style": false,
         "build": false,
