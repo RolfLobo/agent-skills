@@ -1,3 +1,17 @@
+## 0.14.1 (2026-04-01)
+
+### 🚀 Features
+
+- **skills-catalog:** add test anti-cheat enforcement to tlc-spec-driven ([b6fb5d976](https://github.com/tech-leads-club/agent-skills/commit/b6fb5d976))
+
+### 🩹 Fixes
+
+- **tlc-spec-driven:** address PR #82 review comments ([#82](https://github.com/tech-leads-club/agent-skills/issues/82))
+
+### ❤️ Thank You
+
+- Waldemar Neto @waldemarnt
+
 ## 0.14.0 (2026-04-01)
 
 ### 🚀 Features
