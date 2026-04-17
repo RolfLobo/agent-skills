@@ -1,3 +1,13 @@
+## 0.14.2 (2026-04-17)
+
+### 🚀 Features
+
+- **skills-catalog:** add modular-decomposition and modular-design-principles ([714cc25a7](https://github.com/tech-leads-club/agent-skills/commit/714cc25a7))
+
+### ❤️ Thank You
+
+- Waldemar Neto @waldemarnt
+
 ## 0.14.1 (2026-04-01)
 
 ### 🚀 Features
