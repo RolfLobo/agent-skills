@@ -1,3 +1,17 @@
+## 0.14.3 (2026-04-28)
+
+### 🚀 Features
+
+- **skills-catalog:** add tactical-ddd skill ([c2ba7b8f8](https://github.com/tech-leads-club/agent-skills/commit/c2ba7b8f8))
+
+### 📖 Documentation
+
+- **skills-catalog:** tighten tactical-ddd description ([ce94eea28](https://github.com/tech-leads-club/agent-skills/commit/ce94eea28))
+
+### ❤️ Thank You
+
+- Waldemar Neto @waldemarnt
+
 ## 0.14.2 (2026-04-17)
 
 ### 🚀 Features
