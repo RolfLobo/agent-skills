@@ -1214,6 +1214,45 @@
       }
     },
     {
+      "id": "rails-dev",
+      "name": "rails-dev",
+      "description": "\"Opinionated Rails conventions: rich models, concerns, CRUD-everything, state-as-records, minimal dependencies, Minitest with fixtures. Load this skill BEFORE any code-level thinking, not only before editing a file. It is required the moment a task touches Rails code in ANY way: designing or even just discussing a data model, schema, migration, entity, association, field, validation, class, or method name; writing, planning, reviewing, analyzing, testing, debugging, or refactoring; or proposing any model, table, column, route, or code snippet inline in chat. If you are about to name a model or sketch a column you are already in scope, even in an exploratory back-and-forth where no file is written yet. Do not let a \\\"we're just discussing\\\" framing defer it. Do NOT use for non-Rails backends, NestJS, or general architecture (use nestjs-modular-monolith or coding-guidelines).\"",
+      "category": "development",
+      "path": "skills/(development)/rails-dev/SKILL.md",
+      "content": "# Rails Conventions\n\n## Core Philosophy\n\n- **Rich models** - Business logic lives in models, not service objects\n- **Everything is CRUD** - New resource over new action (`resource :closure` not `post :close`)\n- **State as records** - `Closure` model instead of `closed: boolean`\n- **Concerns for composition** - `Closeable`, `Watchable`, `Commentable`\n- **Explicit over clever** - Inline until repetition is real; an abstraction earns its place, it isn't built on speculation\n- **Small interfaces** - No public method without a caller\n- **Let it crash** - Bang methods (`create!`), handle failures at the boundary, not by pre-guarding (`references/error-handling.md`)\n- **Invariants in the schema** - Hard rules (presence, uniqueness, ranges) are NOT NULL / unique / check constraints; validations are for user-facing messages, not the source of truth. References stay soft: no foreign keys, integrity at the model layer\n- **Minimal dependencies** - Build it yourself before reaching for gems. No Devise, Pundit, RSpec, FactoryBot, ViewComponent, service/form objects, or decorators\n- **Database-backed** - Solid Queue/Cache/Cable, no Redis\n- **Test coverage** - Maintain roughly 1:1 test ratio (1 line test per line of code)\n\n## Reference Selection\n\nThis table is an index, not the content. The conventions live in the reference files, not in this table, the codebase, or general Rails knowledge. Match the task to the rows below and **read those files end to end before you design, write, review, or analyze the code**. Reading the row is not reading the reference; guessing from the codebase is how the wrong convention gets shipped.\n\n| Task | Reference |\n|------|-----------|\n| Models, validations, associations, business logic | `references/model.md` |\n| Custom validators, validation rules reused across models | `references/validator.md` |\n| Error handling, rescue boundaries, reporting, retries | `references/error-handling.md` |\n| Controllers, CRUD actions | `references/crud.md` |\n| Routes, `config/routes.rb`, resource mapping | `references/routes.md` |\n| Concerns, shared behavior | `references/concerns.md` |\n| State tracking (not booleans) | `references/state-records.md` |\n| Authentication, authorization, sessions, IDOR scoping | `references/auth.md` |\n| Database migrations | `references/migration.md` |\n| Minitest, fixtures, testing | `references/test.md` |\n| Views, ERB, partials, helpers, presentation logic | `references/view.md` |\n| Turbo Frames, Turbo Streams, real-time | `references/turbo.md` |\n| Stimulus controllers, JS sprinkles | `references/stimulus.md` |\n| Background jobs, Solid Queue | `references/jobs.md` |\n| Concurrency, fibers, Async, external I/O | `references/async.md` |\n| Mailers, email notifications | `references/mailer.md` |\n| Fragment caching, HTTP caching | `references/caching.md` |\n| REST API, JSON responses | `references/api.md` |\n| Multi-tenancy, account scoping | `references/multi-tenant.md` |\n| Event tracking, activity logs | `references/events.md` |\n| Webhooks (inbound/outbound), inbox, idempotency | `references/webhooks.md` |\n| Code review, consistency check | `references/review.md` |\n| HTTP clients, external APIs, Faraday | `references/http-client.md` |\n| Logging, log messages, Rails.logger | `references/logging.md` |\n\n## Coding style\n\nThese are cross-cutting rules: they apply to every file, regardless of area. They do **not** replace the references. For anything area-specific (models, controllers, jobs, views, tests, …) you MUST ALWAYS load the matching reference from the table above before writing or reviewing the code.\n\n### Conditionals\n\nUse an expanded `if/else` over a value-returning guard clause. A guard clause at the top of a method is fine when the body is non-trivial.\n\n```ruby\n# Don't: value-returning guard clause for a simple branch\ndef status_label\n  return \"closed\" if closed?\n  \"open\"\nend\n\n# Do: expanded if/else\ndef status_label\n  if closed?\n    \"closed\"\n  else\n    \"open\"\n  end\nend\n```\n\n### Method order\n\nClass methods, then public (with `initialize` first), then private. Order methods vertically by invocation: a caller sits above its callees.\n\n```ruby\n# Don't: callee above its caller, public after private\nclass Signup\n  def create_member = Member.create!(email:)\n  def call = create_member\nend\n\n# Do: class method, then the caller, then its callees\nclass Signup\n  def self.call(...) = new(...).call\n\n  def call = create_member\n\n  private\n    def create_member = Member.create!(email:)\nend\n```\n\n### Visibility\n\nNo blank line after `private`; indent the methods beneath it. A module of only private methods marks `private` at the top with a blank line after, not indented.\n\n```ruby\n# Don't: blank line after private, methods not indented\nclass Card\n  private\n\n  def closure_exists? = closure.present?\nend\n\n# Do: no blank line, indented under private\nclass Card\n  private\n    def closure_exists? = closure.present?\nend\n```\n\n### Bang methods\n\nUse `!` only when a non-bang counterpart exists (like `save`/`save!`). Never add `!` just to flag a destructive or important action.\n\n```ruby\n# Don't: unpaired bang used to signal \"this is destructive\"\ndef revoke! = update!(revoked_at: Time.current)\n\n# Do: plain domain verb; the ! belongs to the paired persistence call\ndef revoke = update!(revoked_at: Time.current)\n```\n\n### Method naming\n\nPublic methods are domain verbs. When a verb collides with a scope, predicate, or core method (`Kernel#fail`), prefix with `mark_` (no bang): `mark_failed`. Class and concept naming live in `references/model.md`.\n\n```ruby\n# Don't: mark_ prefix when the plain verb is free\ndef mark_published = update!(published_at: Time.current)\n\n# Do: plain verb; reserve mark_ for a real collision (fail -> Kernel#fail)\ndef publish = update!(published_at: Time.current)\ndef mark_failed = update!(failed_at: Time.current)\n```\n\n### Comments\n\nDefault to none. Most comments are noise: the code and naming should carry the meaning.\n\nAdd one only when the code can't carry it:\n\n- The path or code can't make the problem clear.\n- The model's language is ambiguous and a note clarifies where it sits in the domain.\n\nDon't:\n\n- Restate what the code already says.\n- Section code (e.g. `# ----- some_method -----` banners in tests).\n\nWhen a comment earns its place:\n\n- Plain English, always.\n- Concise.\n- No LLM-slop vocabulary.\n- Use a list when it reads clearer than prose.\n\n```ruby\n# Don't: restates what the code already says; section banner\n# increment the attempts counter\nattempts += 1\n\n# ----- private helpers -----\n\n# Do: explains the non-obvious why\n# Circle returns 422 on duplicate emails, so we reconcile instead of recreating.\nreconcile_member(email)\n```\n\n### Errors\n\nDon't swallow errors. Make the failure accessible to the caller, usually by recording it on a returned object rather than logging and returning `false`. Full handling conventions (record vs raise, reporting, wrapping, retries) live in `references/error-handling.md`.\n\n```ruby\n# Don't: swallow the error; the caller can't tell it failed\ndef provision_circle\n  circle_client.create_community_member(...)\nrescue Circle::AdminClient::ApiError\n  false\nend\n\n# Do: record the failure on the returned object\ndef provision_circle\n  circle_client.create_community_member(...)\n  circle_access.mark_successful(external_id: response.dig(:community_member, :id))\nrescue Circle::AdminClient::ApiError => e\n  circle_access.mark_failed(error: e.message)   # caller checks access.failed?\nend\n```\n\n## Sources\n\nThese conventions are adapted from, and may diverge from, these reference apps:\n\n- [basecamp/fizzy](https://github.com/basecamp/fizzy)\n- [railswhey/app](https://github.com/railswhey/app)",
+      "metadata": {
+        "hasScripts": false,
+        "hasReferences": true,
+        "referenceFiles": [
+          "api.md",
+          "async.md",
+          "auth.md",
+          "caching.md",
+          "concerns.md",
+          "crud.md",
+          "error-handling.md",
+          "events.md",
+          "http-client.md",
+          "jobs.md",
+          "logging.md",
+          "mailer.md",
+          "migration.md",
+          "model.md",
+          "multi-tenant.md",
+          "review.md",
+          "routes.md",
+          "state-records.md",
+          "stimulus.md",
+          "test.md",
+          "turbo.md",
+          "validator.md",
+          "view.md",
+          "webhooks.md"
+        ],
+        "lastModified": "2026-07-17"
+      }
+    },
+    {
       "id": "react-best-practices",
       "name": "react-best-practices",
       "description": "React and Next.js performance optimization guidelines from Vercel Engineering. Use when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns. Triggers on tasks involving React components, Next.js pages, data fetching, bundle optimization, or performance improvements. Do NOT use for component API architecture or composition patterns (use react-composition-patterns instead).",
@@ -1722,7 +1761,7 @@
     }
   ],
   "stats": {
-    "totalSkills": 82,
+    "totalSkills": 83,
     "totalCategories": 15
   }
 }
