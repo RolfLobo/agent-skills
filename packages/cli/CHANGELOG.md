@@ -1,3 +1,13 @@
+## 1.4.9 (2026-07-20)
+
+### 🩹 Fixes
+
+- refresh stale skill cache on reinstall ([588ad02d5](https://github.com/tech-leads-club/agent-skills/commit/588ad02d5))
+
+### ❤️ Thank You
+
+- Waldemar Neto @waldemarnt
+
 ## 1.4.8 (2026-06-26)
 
 ### 🩹 Fixes
