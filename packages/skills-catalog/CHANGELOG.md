@@ -1,3 +1,13 @@
+## 0.17.9 (2026-09-18)
+
+### 🚀 Features
+
+- **skills-catalog:** bump tlc-discover to 0.9.0 and tlc-spec-lean to 1.1.0 ([2c7b97cac](https://github.com/tech-leads-club/agent-skills/commit/2c7b97cac))
+
+### ❤️ Thank You
+
+- Waldemar Neto @waldemarnt
+
 ## 0.17.8 (2026-09-10)
 
 ### 🚀 Features
